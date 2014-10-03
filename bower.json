@@ -1,0 +1,27 @@
+{
+  "name": "RoboticsSite",
+  "version": "0.0.1",
+  "authors": [
+    "kevin"
+  ],
+  "description": "second iteration robotics website",
+  "moduleType": [
+    "node"
+  ],
+  "license": "GPL 3",
+  "private": true,
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-latest": "~1.2.26",
+    "angular-ui-router": "~0.2.11",
+    "bootstrap": "~3.2.0",
+    "jquery": "~2.1.1",
+    "fontawesome": "~4.2.0",
+    "moment": "~2.8.3"
+  }
+}
