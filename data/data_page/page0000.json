@@ -3,7 +3,7 @@
     "subtitle": "welcome", 
     "date": "2014-10-2", 
     "author": "Kevin Wang", 
-    "section": [
+    "sections": [
         {
             "type": "text", 
             "content": "Create more pages!"
