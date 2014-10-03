@@ -1,0 +1,16 @@
+{
+    "title": "First Page", 
+    "subtitle": "welcome", 
+    "date": "2014-10-2", 
+    "author": "Kevin Wang", 
+    "section": [
+        {
+            "type": "text", 
+            "content": "Create more pages!"
+        } , 
+        {
+            "type": "image", 
+            "assets": "logo/PrototypeLogo.svg"
+        }
+    ]
+}
