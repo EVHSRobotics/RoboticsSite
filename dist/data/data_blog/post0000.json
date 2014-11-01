@@ -1,0 +1,16 @@
+{
+    "title": "First Post", 
+    "subtitle": "the very first post", 
+    "date": "2014-10-2", 
+    "author": "Kevin Wang", 
+    "sections": [
+        {
+            "type": "text", 
+            "content": "Hello! This is the very first post to begin our new blog!"
+        } , 
+        {
+            "type": "image", 
+            "assets": "logo/PrototypeLogo.svg"
+        }
+    ]
+}

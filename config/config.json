@@ -1,0 +1,9 @@
+{
+    "timer": {
+        "mainDate": "2015-2-3"
+    }, 
+    "logo": {
+        "large": 128, 
+        "navbar": 30
+    }
+}

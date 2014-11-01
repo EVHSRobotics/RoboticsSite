@@ -1,5 +1,5 @@
 //CONFIG 
-    //vendor 
+//vendor 
 var VENDORS = [
     'bower_components/angular/angular.min.js',
     'bower_components/angular-ui-router/release/angular-ui-router.min.js',
@@ -11,14 +11,14 @@ var VENDORS = [
     'bower_components/moment/min/moment.min.js'
 ];
 
-    //browser-sync 
+//browser-sync 
 var CONFIG = {
     server: {
         baseDir: 'dist',
         routes: {
             //"./vendor": "../vendor"
         }
-    }, 
+    },
     port: 1212
 };
 
@@ -30,17 +30,17 @@ var gulp = require('gulp');
 
 var jshint = require('gulp-jshint');
 
-    //concatenate
-var useref = require('gulp-useref');
+//concatenate
+var concat = require('gulp-concat');
 
-    //sass 
+//sass 
 var sass = require('gulp-sass');
 var csso = require('gulp-csso');
 
-    //scripts 
+//scripts 
 var uglify = require('gulp-uglify');
 
-    //util 
+//util 
 var rename = require('gulp-rename');
 var changed = require('gulp-changed');
 var clean = require('gulp-clean');
@@ -48,71 +48,111 @@ var util = require('gulp-util');
 var browsersync = require('browser-sync');
 
 //BROWSER-SYNC tasks 
-gulp.task('browser-sync', function() {
-    browsersync(CONFIG); 
+gulp.task('browser-sync', function () {
+    browsersync(CONFIG);
 });
 
 //CLEAN dist 
-gulp.task('clean', function() {
-    return gulp.src('dist', {read: false})
-    .pipe(clean());
+gulp.task('clean', function () {
+    return gulp.src('dist', {
+            read: false
+        })
+        .pipe(clean());
 });
 
 //HTML 
-gulp.task('html', function() {
+gulp.task('html', function () {
     return gulp.src('html/front.html')
-    .pipe(rename('index.html'))
-    .pipe(gulp.dest('dist'))
-    .pipe(browsersync.reload({stream: true}));
+        .pipe(rename('index.html'))
+        .pipe(gulp.dest('dist'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
 });
 
 //TEMPLATES 
-gulp.task('templates', function() {
+gulp.task('templates', function () {
     return gulp.src('templates/*.html')
-    .pipe(gulp.dest('dist/templates'))
-    .pipe(browsersync.reload({stream: true}));
+        .pipe(gulp.dest('dist/templates'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
 });
 
-//SASS compile concat minify 
-gulp.task('sass', function() {
+//ASSETS 
+gulp.task('assets', function () {
+    return gulp.src('assets/**')
+        .pipe(gulp.dest('dist/assets'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
+});
+
+//DATA 
+gulp.task('data', function () {
+    return gulp.src('data/**')
+        .pipe(gulp.dest('dist/data'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
+});
+
+//CONFIG 
+gulp.task('config', function () {
+    return gulp.src('config/**')
+        .pipe(gulp.dest('dist/config'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
+});
+
+//SASS compile minify 
+gulp.task('sass', function () {
     return gulp.src('scss/*.scss')
-    .pipe(sass())
-    .pipe(useref())
-    .pipe(rename('style.min.css'))
-    .pipe(csso())
-    .pipe(gulp.dest('dist'))
-    .pipe(browsersync.reload({stream: true}));
+        .pipe(sass())
+        .pipe(rename('style.min.css'))
+        .pipe(csso())
+        .pipe(gulp.dest('dist'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
 });
 
 //SCRIPT concat minify 
-gulp.task('scripts', function() {
+gulp.task('scripts', function () {
     return gulp.src('js/*.js')
-    .pipe(useref())
-    .pipe(rename('main.min.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('dist'))
-    .pipe(browsersync.reload({stream: true}));
+        .pipe(concat('main.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('dist'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
 });
 
 //VENDOR  
-gulp.task('vendor', function() {
+gulp.task('vendor', function () {
     return gulp.src(VENDORS)
-    .pipe(gulp.dest('dist/vendor'));
+        .pipe(gulp.dest('dist/vendor'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
 });
 
 //WATCH changes 
-gulp.task('watch', function() {
+gulp.task('watch', function () {
     gulp.watch('html/*.html', ['html']);
+    gulp.watch('templates/*.html', ['templates']);
+    gulp.watch('assets/**', ['assets']);
+    gulp.watch('data/**', ['data']);
+    gulp.watch('config/**', ['config']);
     gulp.watch('js/*.js', ['scripts']);
     gulp.watch('scss/*.scss', ['sass']);
-    gulp.watch('templates/*.html', ['templates']);
-}); 
+
+});
 
 //COMPILE 
-gulp.task('compile', ['vendor', 'html', 'templates', 'sass', 'scripts']);
+gulp.task('compile', ['vendor', 'html', 'templates', 'assets', 'data', 'config', 'sass', 'scripts']);
 
 
 //DEFAULT run server 
-gulp.task('default', ['clean', 'compile','browser-sync', 'watch']);
-
-
+gulp.task('default', ['compile', 'browser-sync', 'watch']);
