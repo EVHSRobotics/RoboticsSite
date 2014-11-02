@@ -1,4 +1,10 @@
+////////////////////////
+//COMPONENT DIRECTIVES//
+////////////////////////
+
 var Components = angular.module('Components', ['Config']);
+
+//Logo Typographic// 
 
 Components.directive('logo', function () {
     return {
@@ -10,12 +16,9 @@ Components.directive('logo', function () {
         controller: ['$scope', '$element', 'configFactory',
             function ($scope, $element, configFactory) {
                 var type = $scope.size || 'large';
-
-                configFactory.get('logo', function (data) {
-                    var dim = data.typographic[type];
-                    $element.children(1).height(dim.val).width(2.2*dim.val).css('position', 'relative').css('top', -dim.offsetTop);
-                });
-    }]
+                var dim = configFactory.get('logo', 'typographic', type);
+                $element.children(1).height(dim.val).width(2.2 * dim.val).css('position', 'relative').css('top', -dim.offsetTop);
+            }]
     };
 });
 
@@ -30,13 +33,14 @@ Components.directive('logoLight', function () {
             function ($scope, $element, configFactory) {
                 var type = $scope.size || 'large';
 
-                configFactory.get('logo', function (data) {
-                    var dim = data.typographic[type];
-                    $element.children(1).height(dim.val).width(2.2*dim.val).css('position', 'relative').css('top', -dim.offsetTop);
-                });
+                var dim = configFactory.get('logo', 'typographic', type);
+                $element.children(1).height(dim.val).width(2.2 * dim.val).css('position', 'relative').css('top', -dim.offsetTop);
+
     }]
     };
 });
+
+//Logo Icon//
 
 Components.directive('logoIcon', function () {
     return {
@@ -50,10 +54,9 @@ Components.directive('logoIcon', function () {
             function ($scope, $element, configFactory) {
                 var type = $scope.size || 'navbar';
 
-                configFactory.get('logo', function (data) {
-                    var dim = data.icon[type];
-                    $element.children(1).height(dim.val).width(dim.val).css('position', 'relative').css('top', -dim.offsetTop);
-                });
+                var dim = configFactory.get(['logo', 'icon', type]);
+                $element.children(1).height(dim.val).width(dim.val).css('position', 'relative').css('top', -dim.offsetTop);
+
     }]
     };
 });
@@ -70,13 +73,13 @@ Components.directive('logoIconLight', function () {
             function ($scope, $element, configFactory) {
                 var type = $scope.size || 'navbar';
 
-                configFactory.get('logo', function (data) {
-                    var dim = data.icon[type];
-                    $element.children(1).height(dim.val).width(dim.val).css('position', 'relative').css('top', -dim.offsetTop);
-                });
+                var dim = configFactory.get('logo', 'icon', type);
+                $element.children(1).height(dim.val).width(dim.val).css('position', 'relative').css('top', -dim.offsetTop);
     }]
     };
 });
+
+//Logo Cougar// 
 
 Components.directive('logoMark', function () {
     return {
@@ -89,10 +92,8 @@ Components.directive('logoMark', function () {
             function ($scope, $element, configFactory) {
                 var type = $scope.size || 'navbar';
 
-                configFactory.get('logo', function (data) {
-                    var dim = data.mark[type];
-                    $element.children(1).height(dim.val).width(dim.val).css('position', 'relative').css('top', -dim.offsetTop);
-                });
+                var dim = configFactory.get('logo', 'mark', type);
+                $element.children(1).height(dim.val).width(dim.val).css('position', 'relative').css('top', -dim.offsetTop);
     }]
     };
 });
@@ -108,10 +109,8 @@ Components.directive('logoMarkLight', function () {
             function ($scope, $element, configFactory) {
                 var type = $scope.size || 'navbar';
 
-                configFactory.get('logo', function (data) {
-                    var dim = data.mark[type];
-                    $element.children(1).height(dim.val).width(dim.val).css('position', 'relative').css('top', -dim.offsetTop);
-                });
+                var dim = configFactory.get('logo', 'mark', type);
+                $element.children(1).height(dim.val).width(dim.val).css('position', 'relative').css('top', -dim.offsetTop);
     }]
     };
 });

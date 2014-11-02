@@ -1,25 +1,78 @@
+//////////////////
+//CONFIG SERVICE//
+//////////////////
+
 var Config = angular.module('Config', []);
 
-Config.factory('configFactory', ['$q', '$http',
-    function ($q, $http) {
-        var promise = null;
+Config.factory('configFactory', [
 
-        var update = function () {
-            promise = null;
-            promise = $http.get('config/config.json');
+    function () {
+        var CONFIG = {
+            "default": "default",
+            "timer": {
+                "mainDate": "2015-2-3"
+            },
+            "navbar": {
+                "position": 80,
+                "tabs": [
+                    {
+                        "title": "About",
+                        "state": "home({sectionid: 'about'})"
+            },
+                    {
+                        "title": "Blog",
+                        "state": "blog"
+            }
+        ]
+            },
+            "logo": {
+                "icon": {
+                    "navbar": {
+                        "val": 42,
+                        "offsetTop": 12
+                    },
+                    "large": {
+                        "val": 128,
+                        "offsetTop": 0
+                    }
+                },
+                "mark": {
+                    "navbar": {
+                        "val": 56,
+                        "offsetTop": 16
+                    },
+                    "large": {
+                        "val": 256,
+                        "offsetTop": 0
+                    }
+                },
+                "typographic": {
+                    "large": {
+                        "val": 192,
+                        "offsetTop": 0
+                    }
+                }
+            }
         };
-
-        update();
-
-        //executes callback on section data 
-        var get = function (section, callback) {
-            promise.success(function (data) {
-                callback(data[section]);
-            });
-        };
+        function get(section) {
+            var val = CONFIG;
+            for(var i = 0; i < arguments.length; i++) {
+                val = val[arguments[i]];
+            }
+            return val;
+        }
+        
+//        function get(section, base) {
+//            base = base || CONFIG;
+//            if (section.length < 2) {
+//                return base[section.shift()];
+//            } else {
+//                var subsection = section.shift();
+//                return get(section, base[subsection]);
+//            }
+//        }
 
         return {
-            update: update,
             get: get
         };
 

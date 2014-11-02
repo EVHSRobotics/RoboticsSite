@@ -23,8 +23,19 @@ a.no-style{
     padding: 0 15px;
 }
 
-header#front {
+//minimum height to content, otherwise 80% of screen 
+header#mainfront {
+    min-height: -webkit-min-content;
+    min-height: -moz-min-content;
+    min-height: min-content;
     height: 80vh;
     //background-color: #FFFAFA;
 }
 
+header#front {
+    min-height: -webkit-min-content;
+    min-height: -moz-min-content;
+    min-height: min-content;
+    height: 50vh;
+    //background-color: #FFFAFA;
+}

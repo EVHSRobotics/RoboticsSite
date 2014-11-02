@@ -1,4 +1,11 @@
-//CONFIG 
+////////////////
+//GULP SCRIPTS//
+////////////////
+
+//////////
+//CONFIG//
+//////////
+
 //vendor 
 var VENDORS = [
     'bower_components/angular/angular.min.js',
@@ -26,7 +33,9 @@ var CONFIG = {
 //GULP 
 var gulp = require('gulp');
 
-//GULP PLUGINS 
+///////////
+//PLUGINS//
+///////////
 
 var jshint = require('gulp-jshint');
 
@@ -46,6 +55,10 @@ var changed = require('gulp-changed');
 var clean = require('gulp-clean');
 var util = require('gulp-util');
 var browsersync = require('browser-sync');
+
+/////////
+//TASKS//
+/////////
 
 //BROWSER-SYNC tasks 
 gulp.task('browser-sync', function () {
@@ -97,15 +110,6 @@ gulp.task('data', function () {
         }));
 });
 
-//CONFIG 
-gulp.task('config', function () {
-    return gulp.src('config/**')
-        .pipe(gulp.dest('dist/config'))
-        .pipe(browsersync.reload({
-            stream: true
-        }));
-});
-
 //SASS compile minify 
 gulp.task('sass', function () {
     return gulp.src('scss/*.scss')
@@ -151,7 +155,21 @@ gulp.task('watch', function () {
 });
 
 //COMPILE 
-gulp.task('compile', ['vendor', 'html', 'templates', 'assets', 'data', 'config', 'sass', 'scripts']);
+gulp.task('compile', ['vendor', 'html', 'templates', 'assets', 'data', 'sass', 'scripts']);
+
+///////
+//DEV//
+///////
+
+//SCRIPT concat without minify 
+gulp.task('scripts-D', function () {
+    return gulp.src('js/*.js')
+        .pipe(concat('main.min.js'))
+        .pipe(gulp.dest('dist'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
+});
 
 //GHPAGES 
 gulp.task('ghpages', function () {
