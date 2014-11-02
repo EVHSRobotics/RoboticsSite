@@ -2,8 +2,35 @@
     "timer": {
         "mainDate": "2015-2-3"
     }, 
+    "navbar": {
+        
+    },
     "logo": {
-        "large": 128, 
-        "navbar": 30
+        "icon": {
+            "navbar": {
+                "val": 42,
+                "offsetTop": 12
+            },
+            "large": {
+                "val": 128,
+                "offsetTop": 0
+            }
+        }, 
+        "mark": {
+            "navbar": {
+                "val": 56, 
+                "offsetTop": 16
+            }, 
+            "large": {
+                "val": 256, 
+                "offsetTop": 0
+            }
+        }, 
+        "typographic": {
+            "large": {
+                "val": 192, 
+                "offsetTop": 0
+            }
+        }
     }
 }

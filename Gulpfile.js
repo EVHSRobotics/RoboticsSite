@@ -153,6 +153,12 @@ gulp.task('watch', function () {
 //COMPILE 
 gulp.task('compile', ['vendor', 'html', 'templates', 'assets', 'data', 'config', 'sass', 'scripts']);
 
+//GHPAGES 
+gulp.task('ghpages', function() {
+    return gulp.src('dist/**')
+    .pipe(gulp.dest('../RoboticsSiteGhpages'));
+});
+
 
 //DEFAULT run server 
 gulp.task('default', ['compile', 'browser-sync', 'watch']);
