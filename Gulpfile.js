@@ -154,9 +154,9 @@ gulp.task('watch', function () {
 gulp.task('compile', ['vendor', 'html', 'templates', 'assets', 'data', 'config', 'sass', 'scripts']);
 
 //GHPAGES 
-gulp.task('ghpages', function() {
+gulp.task('ghpages', function () {
     return gulp.src('dist/**')
-    .pipe(gulp.dest('../RoboticsSiteGhpages'));
+        .pipe(gulp.dest('../RoboticsSiteGhpages'));
 });
 
 
