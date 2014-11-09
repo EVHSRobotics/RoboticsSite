@@ -2,11 +2,20 @@
 //MAIN APP//
 ////////////
 
-var Robotics = angular.module('Robotics', ['ui.router', 'Config', 'Components']);
+var Robotics = angular.module('Robotics', ['ui.router', 'headroom', 'headroomComponents', 'Config', 'LogoComponents']);
 
 ///////////////
 //MAIN ROUTES//
 ///////////////
+
+//Base Url Config//
+
+Robotics.config(['$locationProvider',
+    function ($locationProvider) {
+        //clean urls 
+
+        //$locationProvider.html5Mode(true);
+}]);
 
 Robotics.config(['$stateProvider', '$urlRouterProvider',
     function ($stateProvider, $urlRouterProvider) {
@@ -17,25 +26,32 @@ Robotics.config(['$stateProvider', '$urlRouterProvider',
 
         //home 
         $stateProvider.state('home', {
-            abstract: true,
             url: '/home/:sectionId',
-            controller: ['$state', '$uiViewScroll',
-                function ($state, $uiViewScroll) {
-                    console.log($('#'+$state.params.sectionId));
-                    //make this a service 
-                    if($state.params.sectionId) {
-                        var position = $('[ui-view='+$state.params.sectionId+']').scrollTop();
-                        console.log(position);
-                        
-                    }
-            }],
-            templateUrl: 'templates/home.html',
-        });
 
-        $stateProvider.state('home.main', {
-            url: '',
             views: {
-                'about': {
+                'root@': {
+                    templateUrl: 'templates/home.html',
+                    controller: ['$state', '$uiViewScroll', '$scope',
+                        function ($state, $uiViewScroll, $scope) {
+                            $scope.$on('$viewContentLoaded', function (event) {
+                                console.log('start-----------------------');
+                                console.log('$state.params.sectionId:' + $state.params.sectionId);
+                                //MAKE THIS A SERVICE  
+                                if ($state.params.sectionId != '') {
+                                    var view = $('[ui-view="' + $state.params.sectionId + '"]').first();
+                                    $('html, body').animate({
+                                        scrollTop: view.offset().top
+                                    }, 125);
+                                } else {
+                                    $('html, body').animate({
+                                        scrollTop: 0
+                                    }, 125);
+                                }
+                            });
+
+                        }]
+                },
+                'about@home': {
                     templateUrl: 'templates/home.about.html'
                 }
             }
@@ -44,7 +60,11 @@ Robotics.config(['$stateProvider', '$urlRouterProvider',
         //blog 
         $stateProvider.state('blog', {
             url: '/blog',
-            templateUrl: 'templates/blog.html'
+            views: {
+                'root@': {
+                    templateUrl: 'templates/blog.html'
+                }
+            }
         });
 }]);
 

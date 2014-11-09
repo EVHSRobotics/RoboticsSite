@@ -2,11 +2,11 @@
 //COMPONENT DIRECTIVES//
 ////////////////////////
 
-var Components = angular.module('Components', ['Config']);
+var LogoComponents = angular.module('LogoComponents', ['Config']);
 
 //Logo Typographic// 
 
-Components.directive('logo', function () {
+LogoComponents.directive('logo', function () {
     return {
         restrict: 'A',
         templateUrl: 'assets/logo/PrototypeLogo.svg',
@@ -22,7 +22,7 @@ Components.directive('logo', function () {
     };
 });
 
-Components.directive('logoLight', function () {
+LogoComponents.directive('logoLight', function () {
     return {
         restrict: 'A',
         templateUrl: 'assets/logo/PrototypeLogoWhite.svg',
@@ -42,7 +42,7 @@ Components.directive('logoLight', function () {
 
 //Logo Icon//
 
-Components.directive('logoIcon', function () {
+LogoComponents.directive('logoIcon', function () {
     return {
         restrict: 'A',
         templateUrl: 'assets/logo/PrototypeLogoIcon.svg',
@@ -61,7 +61,7 @@ Components.directive('logoIcon', function () {
     };
 });
 
-Components.directive('logoIconLight', function () {
+LogoComponents.directive('logoIconLight', function () {
     return {
         restrict: 'A',
         templateUrl: 'assets/logo/PrototypeLogoIconWhite.svg',
@@ -81,7 +81,7 @@ Components.directive('logoIconLight', function () {
 
 //Logo Cougar// 
 
-Components.directive('logoMark', function () {
+LogoComponents.directive('logoMark', function () {
     return {
         restrict: 'A',
         scope: {
@@ -98,7 +98,7 @@ Components.directive('logoMark', function () {
     };
 });
 
-Components.directive('logoMarkLight', function () {
+LogoComponents.directive('logoMarkLight', function () {
     return {
         restrict: 'A',
         scope: {

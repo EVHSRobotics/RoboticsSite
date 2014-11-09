@@ -24,7 +24,7 @@ a.no-style{
 }
 
 //minimum height to content, otherwise 80% of screen 
-header#mainfront {
+#mainfront {
     min-height: -webkit-min-content;
     min-height: -moz-min-content;
     min-height: min-content;
@@ -32,7 +32,7 @@ header#mainfront {
     //background-color: #FFFAFA;
 }
 
-header#front {
+#front {
     min-height: -webkit-min-content;
     min-height: -moz-min-content;
     min-height: min-content;

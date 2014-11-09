@@ -17,7 +17,7 @@ Config.factory('configFactory', [
                 "tabs": [
                     {
                         "title": "About",
-                        "state": "home({sectionid: 'about'})"
+                        "state": "home({sectionId: 'about'})"
             },
                     {
                         "title": "Blog",

@@ -15,16 +15,15 @@ var VENDORS = [
     'bower_components/bootstrap/dist/js/bootstrap.min.js',
     'bower_components/fontawesome/css/font-awesome.min.css',
     'bower_components/jquery/dist/jquery.min.js',
-    'bower_components/moment/min/moment.min.js'
+    'bower_components/moment/min/moment.min.js',
+    'bower_components/headroom.js/dist/headroom.min.js',
+    'bower_components/headroom.js/dist/angular.headroom.min.js'
 ];
 
 //browser-sync 
 var CONFIG = {
     server: {
         baseDir: 'dist',
-        routes: {
-            //"./vendor": "../vendor"
-        }
     },
     port: 1212
 };
@@ -61,7 +60,7 @@ var browsersync = require('browser-sync');
 /////////
 
 //BROWSER-SYNC tasks 
-gulp.task('browser-sync', function () {
+gulp.task('bs', function () {
     browsersync(CONFIG);
 });
 
@@ -114,7 +113,7 @@ gulp.task('data', function () {
 gulp.task('sass', function () {
     return gulp.src('scss/*.scss')
         .pipe(sass())
-        .pipe(rename('style.min.css'))
+        .pipe(concat('style.min.css'))
         .pipe(csso())
         .pipe(gulp.dest('dist'))
         .pipe(browsersync.reload({
@@ -179,4 +178,4 @@ gulp.task('ghpages', function () {
 
 
 //DEFAULT run server 
-gulp.task('default', ['compile', 'browser-sync', 'watch']);
+gulp.task('default', ['compile', 'bs', 'watch']);
