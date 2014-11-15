@@ -54,7 +54,7 @@ LogoComponents.directive('logoIcon', function () {
             function ($scope, $element, configFactory) {
                 var type = $scope.size || 'navbar';
 
-                var dim = configFactory.get(['logo', 'icon', type]);
+                var dim = configFactory.get('logo', 'icon', type);
                 $element.children(1).height(dim.val).width(dim.val).css('position', 'relative').css('top', -dim.offsetTop);
 
     }]

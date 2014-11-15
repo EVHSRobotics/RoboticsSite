@@ -1,28 +1,23 @@
-a.no-style{
+a.no-style {
     text-decoration: none;
-    color:inherit;
+    color: inherit;
 }
-
-.inline{
+.inline {
     display: inline;
 }
-
-.block{
+.block {
     display: block;
 }
-
-.hcenter{
-    margin-left:auto;
+.hcenter {
+    margin-left: auto;
     margin-right: auto;
     text-align: center;
 }
-
 //bootstrap horizontal scroll fix;
 .navbar-nav {
     margin: 0;
     padding: 0 15px;
 }
-
 //minimum height to content, otherwise 80% of screen 
 #mainfront {
     min-height: -webkit-min-content;
@@ -30,12 +25,33 @@ a.no-style{
     min-height: min-content;
     height: 80vh;
     //background-color: #FFFAFA;
-}
 
+}
 #front {
     min-height: -webkit-min-content;
     min-height: -moz-min-content;
     min-height: min-content;
     height: 50vh;
     //background-color: #FFFAFA;
+
+}
+
+//centering container in navbar 
+#navbar {
+    text-align: center;
+    height: 120px; //NEED TO MAKE THIS MINIMUM HEIGHT 
+    &:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: '';
+        height: 100%;
+    }
+    .container {
+        display: inline-block;
+        vertical-align: middle;
+        
+    }
+    ul.navbar-nav {
+        font-size: 16px;
+    }
 }

@@ -25,6 +25,11 @@ Config.factory('configFactory', [
             }
         ]
             },
+            "sections": {
+                "home": [
+                    
+                ]
+            },
             "logo": {
                 "icon": {
                     "navbar": {
@@ -54,23 +59,14 @@ Config.factory('configFactory', [
                 }
             }
         };
+
         function get(section) {
             var val = CONFIG;
-            for(var i = 0; i < arguments.length; i++) {
+            for (var i = 0; i < arguments.length; i++) {
                 val = val[arguments[i]];
             }
             return val;
         }
-        
-//        function get(section, base) {
-//            base = base || CONFIG;
-//            if (section.length < 2) {
-//                return base[section.shift()];
-//            } else {
-//                var subsection = section.shift();
-//                return get(section, base[subsection]);
-//            }
-//        }
 
         return {
             get: get
