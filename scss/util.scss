@@ -1,0 +1,28 @@
+///////////////////
+//UTILITY CLASSES//
+///////////////////
+
+
+//Set default height or minimum height to content 
+@mixin def-minheight($defheight) {
+    min-height: -webkit-min-content;
+    min-height: -moz-min-content;
+    min-height: min-content;
+    height: $defheight;
+}
+
+//Center objects 
+@mixin pseudo-center($center-object) {
+    text-align: center;
+    &:before {
+        display: inline-block;
+        vertical-align: middle;
+        content: '';
+        height: 100%;
+    }
+    #{$center-object} {
+        display: inline-block;
+        vertical-align: middle;
+    }
+}
+

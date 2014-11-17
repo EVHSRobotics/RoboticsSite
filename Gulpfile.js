@@ -110,10 +110,10 @@ gulp.task('data', function () {
 });
 
 //SASS compile minify 
-gulp.task('sass', function () {
-    return gulp.src('scss/*.scss')
+gulp.task('scss', function () {
+    return gulp.src('scss/front.scss')
+        .pipe(rename('style.min.css'))
         .pipe(sass())
-        .pipe(concat('style.min.css'))
         .pipe(csso())
         .pipe(gulp.dest('dist'))
         .pipe(browsersync.reload({
@@ -149,12 +149,12 @@ gulp.task('watch', function () {
     gulp.watch('data/**', ['data']);
     gulp.watch('config/**', ['config']);
     gulp.watch('js/*.js', ['scripts']);
-    gulp.watch('scss/*.scss', ['sass']);
+    gulp.watch('scss/*.scss', ['scss']);
 
 });
 
 //COMPILE 
-gulp.task('compile', ['vendor', 'html', 'templates', 'assets', 'data', 'sass', 'scripts']);
+gulp.task('compile', ['vendor', 'html', 'templates', 'assets', 'data', 'scss', 'scripts']);
 
 ///////
 //DEV//
