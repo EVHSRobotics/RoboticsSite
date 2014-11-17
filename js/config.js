@@ -21,7 +21,7 @@ Config.factory('configFactory', [
             },
                     {
                         "title": "Blog",
-                        "state": "blog"
+                        "state": "blog({postId:''})"
             }
         ]
             },

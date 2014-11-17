@@ -34,12 +34,12 @@ Scroll.factory('scrollFactory', ['$state',
             }
             
             $('html, body').animate({
-                scrollTop: offset + 5
+                scrollTop: offset
             }, time, 'swing', function () {
-                //INSTEAD OF THIS, PREVENT CLASS FROM CHANGING 
-                $('html, body').animate({
-                    scrollTop: offset
-                }, 0);
+//                //INSTEAD OF THIS, PREVENT CLASS FROM CHANGING 
+//                $('html, body').animate({
+//                    scrollTop: offset
+//                }, 0);
             });
 
         };

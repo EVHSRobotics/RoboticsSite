@@ -52,10 +52,13 @@ Robotics.config(['$stateProvider', '$urlRouterProvider',
 
         //blog 
         $stateProvider.state('blog', {
-            url: '/blog',
+            url: '/blog/:postId',
             views: {
                 'root@': {
                     templateUrl: 'templates/blog.html'
+                }, 
+                'post@blog': {
+                    templateUrl: 'templates/blogPost.html'
                 }
             }
         });
