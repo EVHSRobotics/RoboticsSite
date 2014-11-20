@@ -2,7 +2,7 @@
 //MAIN APP//
 ////////////
 
-var Robotics = angular.module('Robotics', ['ui.router', 'headroom', 'headroomComponents', 'Config', 'Scroll', 'LogoComponents']);
+var Robotics = angular.module('Robotics', ['ui.router', 'headroom', 'HeadroomComponents', 'Config', 'Scroll', 'LogoComponents']);
 
 ///////////////
 //MAIN ROUTES//

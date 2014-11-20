@@ -1,6 +1,6 @@
-var headroomComponents = angular.module('headroomComponents', []);
+var HeadroomComponents = angular.module('HeadroomComponents', []);
 
-headroomComponents.directive('headroomSpacer', function () {
+HeadroomComponents.directive('headroomSpacer', function () {
     return {
         restrict: 'A',
         scope: {
