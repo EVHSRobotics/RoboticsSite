@@ -1,12 +1,12 @@
 {
-    "title": "First Page", 
-    "subtitle": "welcome", 
+    "title": "First Post", 
+    "subtitle": "the very first post", 
     "date": "2014-10-2", 
     "author": "kevin", 
     "sections": [
         {
             "type": "text", 
-            "content": "Create more pages!"
+            "content": "Hello! This is the very first post to begin our new blog!"
         } , 
         {
             "type": "image", 

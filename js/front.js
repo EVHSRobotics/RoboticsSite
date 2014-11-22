@@ -2,7 +2,17 @@
 //MAIN APP//
 ////////////
 
-var Robotics = angular.module('Robotics', ['ui.router', 'headroom', 'HeadroomComponents', 'Config', 'Scroll', 'LogoComponents']);
+var Robotics = angular.module('Robotics', ['ui.router', 'headroom', 'HeadroomComponents', 'Config', 'Javagod', 'Scroll', 'LogoComponents']);
+
+//////////////////
+//JAVAGOD CONFIG//
+//////////////////
+
+Robotics.config(['FJavagodProvider',
+    function (FJavagodProvider) {
+        FJavagodProvider.setDataUrl('data/data_god_blog');
+        FJavagodProvider.setPrefix('godPost');
+    }]);
 
 ///////////////
 //MAIN ROUTES//
@@ -24,10 +34,11 @@ Robotics.config(['$stateProvider', '$urlRouterProvider',
 
         //States// 
         //DYNAMICALLY OBTAIN THESE VALUES FROM CONFIG 
+
         var homeViews = {
             'root@': {
                 templateUrl: 'templates/home.html',
-                controller: ['$state','$scope', 'scrollFactory',
+                controller: ['$state', '$scope', 'scrollFactory',
                         function ($state, $scope, scrollFactory) {
                         $scope.$on('$viewContentLoaded', function (event) {
                             //PREVENT DUPLICATE CALLS 
@@ -55,22 +66,31 @@ Robotics.config(['$stateProvider', '$urlRouterProvider',
             url: '/blog/:postId',
             views: {
                 'root@': {
-                    templateUrl: 'templates/blog.html'
-                }, 
+                    templateUrl: 'templates/godBlog.html',
+                    controller: ['$state', '$scope', 'FJavagod',
+                        function ($state, $scope, FJavagod) {
+                            FJavagod.getPostJson($state.params.postId, function(data) {
+                                $scope.god = data;
+                            });
+                        }
+                    ]
+                },
                 'post@blog': {
-                    templateUrl: 'templates/blogPost.html'
+                    templateUrl: 'templates/godBlogPost.html'
                 }
             }
         });
-        
+
         //post creator 
         $stateProvider.state('javagod', {
-            url: '/javagod', 
+            url: '/javagod',
             views: {
                 'root@': {
-                    templateUrl: 'templates/javagod.html', 
-                    controller: [function() {
-                        
+                    templateUrl: 'templates/javagod.html',
+                    controller: [
+
+                        function () {
+
                     }]
                 }
             }
