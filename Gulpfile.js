@@ -49,11 +49,22 @@ var csso = require('gulp-csso');
 var uglify = require('gulp-uglify');
 
 //util 
+var fs = require('fs');
 var rename = require('gulp-rename');
 var changed = require('gulp-changed');
 var clean = require('gulp-clean');
 var util = require('gulp-util');
+var data = require('gulp-data');
 var browsersync = require('browser-sync');
+
+//////////////////
+//File Structure//
+//////////////////
+
+//File Array in directory 
+var fileArray = function(dir) {
+    return fs.readdirSync(dir);
+};
 
 /////////
 //TASKS//
@@ -107,6 +118,14 @@ gulp.task('data', function () {
         .pipe(browsersync.reload({
             stream: true
         }));
+});
+
+gulp.task('dataBlogArray', function() {
+    var blogPostArray = [];
+    fileArray('data/data_god_blog').map(function(element) {
+
+    });
+    
 });
 
 //SASS compile minify 

@@ -12,6 +12,7 @@ Robotics.config(['FJavagodProvider',
     function (FJavagodProvider) {
         FJavagodProvider.setDataUrl('data/data_god_blog');
         FJavagodProvider.setPrefix('godPost');
+        FJavagodProvider.setPostArrayUrl('data/data_god_blog/godPostArray');
     }]);
 
 ///////////////

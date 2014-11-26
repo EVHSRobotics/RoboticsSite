@@ -1,0 +1,16 @@
+{
+    "title": "Second Post", 
+    "subtitle": "so cool", 
+    "date": "2014-11-26", 
+    "author": "kevin", 
+    "sections": [
+        {
+            "type": "text", 
+            "content": "Wow another post. He thinks that he is so cool."
+        } , 
+        {
+            "type": "image", 
+            "assets": "logo/PrototypeLogo.svg"
+        }
+    ]
+}
