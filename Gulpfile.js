@@ -36,6 +36,11 @@ var gulp = require('gulp');
 //PLUGINS//
 ///////////
 
+//node 
+var fs = require('fs');
+var path = require('path');
+
+//hint 
 var jshint = require('gulp-jshint');
 
 //concatenate
@@ -49,12 +54,13 @@ var csso = require('gulp-csso');
 var uglify = require('gulp-uglify');
 
 //util 
-var fs = require('fs');
 var rename = require('gulp-rename');
 var changed = require('gulp-changed');
 var clean = require('gulp-clean');
 var util = require('gulp-util');
-var data = require('gulp-data');
+var gulpData = require('gulp-data');
+var jsonEditor = require('gulp-json-editor');
+var merge = require('merge-stream');
 var browsersync = require('browser-sync');
 
 //////////////////
@@ -62,7 +68,7 @@ var browsersync = require('browser-sync');
 //////////////////
 
 //File Array in directory 
-var fileArray = function(dir) {
+var fileArray = function (dir) {
     return fs.readdirSync(dir);
 };
 
@@ -120,12 +126,24 @@ gulp.task('data', function () {
         }));
 });
 
-gulp.task('dataBlogArray', function() {
+gulp.task('dataBlogArray', function () {
     var blogPostArray = [];
-    fileArray('data/data_god_blog').map(function(element) {
-
+    var url = 'data/data_god_blog';
+    fileArray(url).map(function (element) {
+        return gulp.src(path.join(url, element, '/*.json'))
+            .pipe(gulpData(function (data) {
+                blogPostArray.push({
+                    title: data.title,
+                    subtitle: data.subtitle,
+                    date: data.date
+                });
+            }));
     });
-    
+    return gulp.src('data/godBlogPostArray.json')
+        .pipe(jsonEditor(function (json) {
+            return blogPostArray;
+        }))
+        .pipe(gulp.dest('dist/data'));
 });
 
 //SASS compile minify 

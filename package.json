@@ -18,7 +18,9 @@
     "browser-sync": "~1.5.2",
     "gulp-csso": "~0.2.9",
     "gulp-concat": "~2.4.1",
-    "gulp-data": "~1.0.2"
+    "gulp-data": "~1.0.2",
+    "merge-stream": "~0.1.6",
+    "gulp-json-editor": "~2.2.1"
   },
   "dependencies": {
     "express": "~4.9.8"
