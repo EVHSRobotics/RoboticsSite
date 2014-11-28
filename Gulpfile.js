@@ -58,7 +58,6 @@ var rename = require('gulp-rename');
 var changed = require('gulp-changed');
 var clean = require('gulp-clean');
 var util = require('gulp-util');
-var gulpData = require('gulp-data');
 var jsonEditor = require('gulp-json-editor');
 var merge = require('merge-stream');
 var browsersync = require('browser-sync');
@@ -69,7 +68,9 @@ var browsersync = require('browser-sync');
 
 //File Array in directory 
 var fileArray = function (dir) {
-    return fs.readdirSync(dir);
+    return fs.readdirSync(dir).map(function (element) {
+        return './' + dir + '/' + element;
+    });
 };
 
 /////////
@@ -126,18 +127,19 @@ gulp.task('data', function () {
         }));
 });
 
-gulp.task('dataBlogArray', function () {
+
+//Data Blog Array 
+gulp.task('dataBlogArray', ['data'], function () {
     var blogPostArray = [];
-    var url = 'data/data_god_blog';
-    fileArray(url).map(function (element) {
-        return gulp.src(path.join(url, element, '/*.json'))
-            .pipe(gulpData(function (data) {
-                blogPostArray.push({
-                    title: data.title,
-                    subtitle: data.subtitle,
-                    date: data.date
-                });
-            }));
+    //MAKE THIS COME FROM THE CONFIG FILE 
+    fileArray('data/data_god_blog').map(function (element) {
+        var data = require(element);
+        blogPostArray.push({
+            id: data.id, 
+            title: data.title,
+            subtitle: data.subtitle,
+            date: data.date
+        });
     });
     return gulp.src('data/godBlogPostArray.json')
         .pipe(jsonEditor(function (json) {
@@ -183,7 +185,7 @@ gulp.task('watch', function () {
     gulp.watch('html/*.html', ['html']);
     gulp.watch('templates/*.html', ['templates']);
     gulp.watch('assets/**', ['assets']);
-    gulp.watch('data/**', ['data']);
+    gulp.watch('data/**', ['data', 'dataBlogArray']);
     gulp.watch('config/**', ['config']);
     gulp.watch('js/*.js', ['scripts']);
     gulp.watch('scss/*.scss', ['scss']);
@@ -191,7 +193,7 @@ gulp.task('watch', function () {
 });
 
 //COMPILE 
-gulp.task('compile', ['vendor', 'html', 'templates', 'assets', 'data', 'scss', 'scripts']);
+gulp.task('compile', ['vendor', 'html', 'templates', 'assets', 'data', 'dataBlogArray', 'scss', 'scripts']);
 
 ///////
 //DEV//
