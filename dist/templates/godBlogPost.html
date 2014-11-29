@@ -1,13 +1,23 @@
 <div>
-    <div class="title-block">
+    <div class="page-header">
         <h1 id="title">{{god.title}} <small id="subtitle">{{god.subtitle}}</small></h1>
-        <h3 id="date">{{god.date}}</h3>
-        <h4 id="author">{{god.author}}</h4>
+        <h6 id="date">{{god.date}}</h6>
+        <h5 id="author">{{god.author}}</h5>
     </div>
-    <div id="sections">
-        <p>
-            wao im a section
-        </p>
+    <div id="sections" class="row">
+        <div ng-repeat="section in god.sections" ng-switch="section.type" class="col-md-12">
+            <div ng-switch-when="image">
+                <div ng-include="'templates/godBlogPost.image.html'"></div>
+            </div>
+            <div ng-switch-when="text">
+                <p>
+                    {{section.content}}
+                </p>
+            </div>
+            <div ng-switch-default>
+                {{section.content}}
+            </div>
+        </div>
     </div>
 </div>
 

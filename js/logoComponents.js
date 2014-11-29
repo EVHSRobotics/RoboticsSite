@@ -44,18 +44,17 @@ LogoComponents.directive('logoLight', function () {
 
 LogoComponents.directive('logoIcon', function () {
     return {
-        restrict: 'A',
+        restrict: 'EA',
         templateUrl: 'assets/logo/PrototypeLogoIcon.svg',
-        transclude: true,
         scope: {
-            size: '@logoIcon'
+            size: '@logoIconSize'
         },
         controller: ['$scope', '$element', 'configFactory',
             function ($scope, $element, configFactory) {
                 var type = $scope.size || 'navbar';
 
                 var dim = configFactory.get('logo', 'icon', type);
-                $element.children(1).height(dim.val).width(dim.val).css('position', 'relative').css('top', -dim.offsetTop);
+                $element.children(1).height(dim.val).width(dim.val);
 
     }]
     };
@@ -63,18 +62,17 @@ LogoComponents.directive('logoIcon', function () {
 
 LogoComponents.directive('logoIconLight', function () {
     return {
-        restrict: 'A',
+        restrict: 'EA',
         templateUrl: 'assets/logo/PrototypeLogoIconWhite.svg',
-        transclude: true,
         scope: {
-            size: '@logoIconLight'
+            size: '@logoIconSize'
         },
         controller: ['$scope', '$element', 'configFactory',
             function ($scope, $element, configFactory) {
                 var type = $scope.size || 'navbar';
 
                 var dim = configFactory.get('logo', 'icon', type);
-                $element.children(1).height(dim.val).width(dim.val).css('position', 'relative').css('top', -dim.offsetTop);
+                $element.children(1).height(dim.val).width(dim.val);
     }]
     };
 });

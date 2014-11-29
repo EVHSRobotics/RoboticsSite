@@ -5,4 +5,3 @@
     <g transform="translate(-111,-123.36187)" style="stroke:#222222;stroke-width:6;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"></g>
     <path d="m 9,9 200,0 0,120 -200,0 0,80" style="fill:none;stroke:#222222;stroke-width:16;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"></path>
 </svg>
-<span ng-transclude></span>

@@ -11,7 +11,8 @@
         } , 
         {
             "type": "image", 
-            "assets": "logo/PrototypeLogo.svg"
+            "content": "data/data_images/GodRichard.jpg", 
+            "caption": "the god and his child"
         }
     ]
 }

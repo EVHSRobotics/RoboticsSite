@@ -78,7 +78,7 @@ var fileArray = function (dir) {
 /////////
 
 //BROWSER-SYNC tasks 
-gulp.task('bs', function () {
+gulp.task('bs', ['compile'], function () {
     browsersync(CONFIG);
 });
 
@@ -181,7 +181,7 @@ gulp.task('vendor', function () {
 });
 
 //WATCH changes 
-gulp.task('watch', function () {
+gulp.task('watch', ['compile'], function () {
     gulp.watch('html/*.html', ['html']);
     gulp.watch('templates/*.html', ['templates']);
     gulp.watch('assets/**', ['assets']);
