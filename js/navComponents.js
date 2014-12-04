@@ -4,6 +4,6 @@
 
 var NavComponents = angular.module('NavComponents', []);
 
-//CREATE NAV BAR COMPONENT 
+//CREATE NAV BAR COMPONENT
 
-//GET SECTIONS FROM CONFIG 
+//GET SECTIONS FROM CONFIG
