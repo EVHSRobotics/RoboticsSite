@@ -4,7 +4,6 @@
 
 //Set default height or minimum height to content
 @mixin def-minheight($defheight) {
-  min-height: -moz-min-content;
   min-height: min-content;
   height: $defheight;
 
@@ -18,10 +17,7 @@
     content: '';
     height: 100%;
   }
-  # {
-     $center-object;
-  }
-  {
+  #{$center-object}{
     display: inline-block;
     vertical-align: middle;
   }

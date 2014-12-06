@@ -134,7 +134,7 @@ gulp.task('dataBlogArray', ['data'], function() {
   //MAKE THIS COME FROM THE CONFIG FILE
   fileArray('data/data_god_blog').map(function(element) {
     var data = require(element);
-    blogPostArray.push({
+    blogPostArray.unshift({
       id: data.id,
       title: data.title,
       subtitle: data.subtitle,
