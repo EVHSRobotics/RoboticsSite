@@ -23,6 +23,7 @@
     "jquery": "~2.1.1",
     "fontawesome": "~4.2.0",
     "moment": "~2.8.3",
-    "headroom.js": "~0.7.0"
+    "headroom.js": "~0.7.0",
+    "angular-ui-utils": "~0.1.1"
   }
 }

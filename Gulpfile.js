@@ -17,7 +17,8 @@ var VENDORS = [
   'bower_components/jquery/dist/jquery.min.js',
   'bower_components/moment/min/moment.min.js',
   'bower_components/headroom.js/dist/headroom.min.js',
-  'bower_components/headroom.js/dist/angular.headroom.min.js'
+  'bower_components/headroom.js/dist/angular.headroom.min.js',
+  'bower_components/angular-ui-utils/ui-utils.min.js'
 ];
 
 //browser-sync

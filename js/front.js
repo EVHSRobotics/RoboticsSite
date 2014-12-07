@@ -1,12 +1,31 @@
-////////////
-//MAIN APP//
-////////////
+/*
+##     ##    ###    #### ##    ##
+###   ###   ## ##    ##  ###   ##
+#### ####  ##   ##   ##  ####  ##
+## ### ## ##     ##  ##  ## ## ##
+##     ## #########  ##  ##  ####
+##     ## ##     ##  ##  ##   ###
+##     ## ##     ## #### ##    ##
+*/
 
-var Robotics = angular.module('Robotics', ['ui.router', 'headroom', 'HeadroomComponents', 'Config', 'Javagod', 'Scroll', 'LogoComponents']);
+var Robotics = angular.module('Robotics', ['ui.router', 'ui.utils', 'headroom', 'HeadroomComponents', 'Config', 'Javagod', 'Scroll', 'LogoComponents']);
+/*
+      #
+      #   ##   #    #   ##    ####   ####  #####
+      #  #  #  #    #  #  #  #    # #    # #    #
+      # #    # #    # #    # #      #    # #    #
+#     # ###### #    # ###### #  ### #    # #    #
+#     # #    #  #  #  #    # #    # #    # #    #
+ #####  #    #   ##   #    #  ####   ####  #####
 
-//////////////////
-//JAVAGOD CONFIG//
-//////////////////
+ #####
+#     #  ####  #    # ###### #  ####
+#       #    # ##   # #      # #    #
+#       #    # # #  # #####  # #
+#       #    # #  # # #      # #  ###
+#     # #    # #   ## #      # #    #
+ #####   ####  #    # #      #  ####
+*/
 
 Robotics.config(['FJavagodProvider',
   function(FJavagodProvider) {
@@ -16,9 +35,15 @@ Robotics.config(['FJavagodProvider',
   }
 ]);
 
-///////////////
-//MAIN ROUTES//
-///////////////
+/*
+#     #                 ######
+##   ##   ##   # #    # #     #  ####  #    # ##### ######  ####
+# # # #  #  #  # ##   # #     # #    # #    #   #   #      #
+#  #  # #    # # # #  # ######  #    # #    #   #   #####   ####
+#     # ###### # #  # # #   #   #    # #    #   #   #           #
+#     # #    # # #   ## #    #  #    # #    #   #   #      #    #
+#     # #    # # #    # #     #  ####   ####    #   ######  ####
+*/
 
 //Base Url Config//
 
@@ -86,27 +111,36 @@ Robotics.config(['$stateProvider', '$urlRouterProvider',
       }
     });
 
-    //post creator
+    //static site engine data creator
     $stateProvider.state('javagod', {
       url: '/javagod',
       views: {
         'root@': {
-          templateUrl: 'templates/javagod.html',
-          controller: [
-
-            function() {
-
-            }
-          ]
+          templateUrl: 'templates/javagod.html'
         }
       }
     });
   }
 ]);
 
-/////////////////////
-//GLOBAL CONTROLLER//
-/////////////////////
+
+/*
+ #####
+#     # #       ####  #####    ##   #
+#       #      #    # #    #  #  #  #
+#  #### #      #    # #####  #    # #
+#     # #      #    # #    # ###### #
+#     # #      #    # #    # #    # #
+ #####  ######  ####  #####  #    # ######
+
+ #####
+#     #  ####  #    # ##### #####   ####  #      #      ###### #####
+#       #    # ##   #   #   #    # #    # #      #      #      #    #
+#       #    # # #  #   #   #    # #    # #      #      #####  #    #
+#       #    # #  # #   #   #####  #    # #      #      #      #####
+#     # #    # #   ##   #   #   #  #    # #      #      #      #   #
+ #####   ####  #    #   #   #    #  ####  ###### ###### ###### #    #
+*/
 
 Robotics.controller('mainController', ['configFactory',
   function(configFactory) {

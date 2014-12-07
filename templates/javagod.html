@@ -1,28 +1,49 @@
 <header>
-  <div class="container jumbotron">
-    <h1>Javagod <small>a static site engine</small></h1>
-  </div>
   <div class="container">
+    <div class="jumbotron">
+      <h1>Javagod <small>a static site engine</small></h1>
+    </div>
     <div class="page-header">
       <h1>God Post Creator</h1>
     </div>
     <div class="row">
       <div class="col-md-12">
-        <form class="css-form">
-          <div class="input-group input-group-lg">
-            <input type="text" ng-model="post.title" placeholder="Title" class="form-control">
+        <form name="godPost" class="css-form" novalidate ng-controller="CPostCreator as post">
+          <div class="input-group input-group">
+            <input required type="text" name="title" ng-model="post.title" placeholder="Title" class="form-control">
+            <span class="input-group-addon">
+              <span ng-show="godPost.title.$invalid && !godPost.title.$pristine" class="label label-warning"><i class="fa fa-warning fa-lg"></i> Title must be filled</span>
+              <span ng-show="godPost.title.$valid && !godPost.title.$pristine"><span class="label label-success"><i class="fa fa-check"></i></span></span>
+            </span>
           </div>
-          <div class="input-group input-group-sm">
-            <input type="text" ng-model="post.subtitle" placeholder="Subtitle" class="form-control">
+          <div class="input-group input-group">
+            <input required type="text" name="subtitle" ng-model="post.subtitle" placeholder="Subtitle" class="form-control">
+            <span class="input-group-addon">
+              <span ng-show="godPost.subtitle.$invalid && !godPost.subtitle.$pristine" class="label label-warning"><i class="fa fa-warning fa-lg"></i> Subtitle must be filled</span>
+              <span ng-show="godPost.subtitle.$valid && !godPost.subtitle.$pristine"><span class="label label-success"><i class="fa fa-check"></i></span></span>
+            </span>
           </div>
           <div class="input-group">
-            <input type="text" ng-model="post.date" placeholder="yyyy-mm-dd" class="form-control">
+            <input required type="text" name="date" ng-model="post.date" ui-mask="9999-99-99" placeholder="year-mm-dd" ng-pattern="/\d{8}/" class="form-control">
+            <span class="input-group-addon">
+              <button type="button" class="btn btn-primary" ng-click="post.dateSetToday()">Today</button>
+              <span ng-show="godPost.date.$invalid && !godPost.date.$pristine" class="label label-warning"><i class="fa fa-warning fa-lg"></i> Date must be filled</span>
+              <span ng-show="godPost.date.$valid && !godPost.date.$pristine"><span class="label label-success"><i class="fa fa-check"></i></span></span>
+            </span>
           </div>
           <div class="input-group">
-            <input type="text" ng-model="post.author" placeholder="Author" class="form-control">
+            <input required type="text" name="author" ng-model="post.author" placeholder="Author" class="form-control">
+            <span class="input-group-addon">
+              <span ng-show="godPost.author.$invalid && !godPost.author.$pristine" class="label label-warning"><i class="fa fa-warning fa-lg"></i> Author must be filled</span>
+              <span ng-show="godPost.author.$valid && !godPost.author.$pristine"><span class="label label-success"><i class="fa fa-check"></i></span></span>
+            </span>
           </div>
       </div>
       </form>
+      {{post.title}}<br>
+      {{post.subtitle}}<br>
+      {{post.date}}<br>
+      {{post.author}}<br>
     </div>
   </div>
   </div>

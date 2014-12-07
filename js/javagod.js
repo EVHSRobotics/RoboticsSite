@@ -72,6 +72,18 @@ Javagod.provider('FJavagod', [
   }
 ]);
 
+Javagod.controller('CPostCreator', ['$scope', function($scope) {
+  this.title="";
+  this.subtitle="";
+  this.date="";
+  this.author="";
+
+  this.dateSetToday = function() {
+    $scope.godPost.date.$setViewValue('');
+    this.date = moment().format('YYYYMMDD');
+  };
+}]);
+
 Javagod.directive('javagodBlogNav', function() {
   return {
     restrict: 'A',
