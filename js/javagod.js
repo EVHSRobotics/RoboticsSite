@@ -77,6 +77,30 @@ Javagod.controller('CPostCreator', ['$scope', function($scope) {
   this.subtitle="";
   this.date="";
   this.author="";
+  this.sections = [];
+
+  this.SECTION_TYPE = {
+    text: 0x0010,
+    image: 0x0020,
+    video: 0x0030
+  };
+
+  this.Section = function(aType, aContent) {
+    aContent = aContent || '';
+    return{
+      type: aType,
+      content: aContent
+    };
+  };
+
+  this.addSection = function(sect) {
+    sect = sect || new Section(SECTION_TYPE.text);
+    sections.push(sect);
+  };
+
+  this.deleteSection = function(sectId) {
+    sections;
+  };
 
   this.dateSetToday = function() {
     $scope.godPost.date.$setViewValue('');
