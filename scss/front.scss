@@ -36,10 +36,10 @@ a.no-style {
 //for desktop only
 @media (min-width: 768px) {
   #mainfront {
-    @include def-minheight(60vh);
+    @include def-minheight(80vh);
   }
   #front {
-    @include def-minheight(30vh);
+    @include def-minheight(60vh);
   }
 
 }
