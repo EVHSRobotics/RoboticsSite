@@ -108,30 +108,37 @@ Javagod.factory('FGodPostSection', ['GOD_POST_SECTION_TYPE',
         return PostSection;
 }]);
 
-Javagod.controller('CPostCreator', ['$scope', 'FGodPostSection','GOD_POST_SECTION_TYPE',
-    function ($scope, PostSection,GOD_POST_SECTION_TYPE) {
-        this.title = "";
-        this.subtitle = "";
-        this.date = "";
-        this.author = "";
-        this.sections = [];
-        
+Javagod.controller('CPostCreator', ['$scope', 'FGodPostSection', 'GOD_POST_SECTION_TYPE',
+    function ($scope, PostSection, GOD_POST_SECTION_TYPE) {
+        this.thePost = {
+            title: "",
+            subtitle: "",
+            date: "",
+            author: "",
+            sections: []
+        };
+
+
         this.SECTION_TYPE = GOD_POST_SECTION_TYPE;
 
         this.addSection = function (sect) {
-            this.sections.push(new PostSection(sect));
+            this.thePost.sections.push(new PostSection(sect));
         };
 
         this.deleteSection = function (sectId) {
-            this.sections.splice(sectId, 1);
+            this.thePost.sections.splice(sectId, 1);
         };
 
         this.dateSetToday = function () {
             $scope.godPost.date.$setViewValue('');
-            this.date = moment().format('YYYYMMDD');
+            this.thePost.date = moment().format('YYYYMMDD');
         };
-        
+
         this.addSection(GOD_POST_SECTION_TYPE.text);
+        
+        this.exportJson = function() {
+            
+        };
 }]);
 
 Javagod.directive('javagodBlogNav', function () {
