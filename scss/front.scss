@@ -37,11 +37,12 @@ a.no-style {
 @media (min-width: 768px) {
   #mainfront {
     @include def-minheight(80vh);
+    @include pseudo-center('.jumbotron');
   }
   #front {
     @include def-minheight(60vh);
+    @include pseudo-center('.jumbotron');
   }
-
 }
 //centering container in navbar
 nav#navbar {

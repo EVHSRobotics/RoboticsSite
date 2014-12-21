@@ -23,10 +23,10 @@ var VENDORS = [
 
 //browser-sync
 var CONFIG = {
-  server: {
-    baseDir: 'dist',
-  },
-  port: 1212
+    server: {
+        baseDir: 'dist'
+    },
+    port: 1212
 };
 
 
@@ -68,10 +68,10 @@ var browsersync = require('browser-sync');
 //////////////////
 
 //File Array in directory
-var fileArray = function(dir) {
-  return fs.readdirSync(dir).map(function(element) {
-    return './' + dir + '/' + element;
-  });
+var fileArray = function (dir) {
+    return fs.readdirSync(dir).map(function (element) {
+        return './' + dir + '/' + element;
+    });
 };
 
 /////////
@@ -79,117 +79,129 @@ var fileArray = function(dir) {
 /////////
 
 //BROWSER-SYNC tasks
-gulp.task('bs', ['compile'], function() {
-  browsersync(CONFIG);
+gulp.task('bs', ['compile'], function () {
+    browsersync(CONFIG);
 });
 
 //CLEAN dist
-gulp.task('clean', function() {
-  return gulp.src('dist', {
-      read: false
-    })
-    .pipe(clean());
+gulp.task('clean', function () {
+    return gulp.src('dist', {
+            read: false
+        })
+        .pipe(clean());
 });
 
 //HTML
-gulp.task('html', function() {
-  return gulp.src('html/front.html')
-    .pipe(rename('index.html'))
-    .pipe(gulp.dest('dist'))
-    .pipe(browsersync.reload({
-      stream: true
-    }));
+gulp.task('html', function () {
+    return gulp.src('html/front.html')
+        .pipe(rename('index.html'))
+        .pipe(gulp.dest('dist'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
 });
 
 //TEMPLATES
-gulp.task('templates', function() {
-  return gulp.src('templates/*.html')
-    .pipe(gulp.dest('dist/templates'))
-    .pipe(browsersync.reload({
-      stream: true
-    }));
+gulp.task('templates', function () {
+    return gulp.src('templates/*.html')
+        .pipe(gulp.dest('dist/templates'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
 });
 
 //ASSETS
-gulp.task('assets', function() {
-  return gulp.src('assets/**')
-    .pipe(gulp.dest('dist/assets'))
-    .pipe(browsersync.reload({
-      stream: true
-    }));
+gulp.task('assets', function () {
+    return gulp.src('assets/**')
+        .pipe(gulp.dest('dist/assets'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
 });
 
 //DATA
-gulp.task('data', function() {
-  return gulp.src('data/**')
-    .pipe(gulp.dest('dist/data'))
-    .pipe(browsersync.reload({
-      stream: true
-    }));
+gulp.task('data', function () {
+    return gulp.src('data/**')
+        .pipe(gulp.dest('dist/data'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
 });
 
 
 //Data Blog Array
-gulp.task('dataBlogArray', ['data'], function() {
-  var blogPostArray = [];
-  //MAKE THIS COME FROM THE CONFIG FILE
-  fileArray('data/data_god_blog').map(function(element) {
-    var data = require(element);
-    blogPostArray.unshift({
-      id: data.id,
-      title: data.title,
-      subtitle: data.subtitle,
-      date: data.date
+gulp.task('dataBlogArray', ['data'], function () {
+    var blogPostArray = [];
+    //MAKE THIS COME FROM THE CONFIG FILE
+    fileArray('data/data_god_blog').map(function (element) {
+        var data = require(element);
+        blogPostArray.unshift({
+            id: data.id,
+            title: data.title,
+            subtitle: data.subtitle,
+            date: data.date
+        });
     });
-  });
-  return gulp.src('data/godBlogPostArray.json')
-    .pipe(jsonEditor(function(json) {
-      return blogPostArray;
-    }))
-    .pipe(gulp.dest('dist/data'));
+    return gulp.src('data/godBlogPostArray.json')
+        .pipe(jsonEditor(function (json) {
+            return blogPostArray;
+        }))
+        .pipe(gulp.dest('dist/data'));
 });
 
 //SASS compile minify
-gulp.task('scss', function() {
-  return gulp.src('scss/front.scss')
-    .pipe(rename('style.min.css'))
-    .pipe(sass())
-    .pipe(csso())
-    .pipe(gulp.dest('dist'))
-    .pipe(browsersync.reload({
-      stream: true
-    }));
+gulp.task('scss', function () {
+    return gulp.src('scss/front.scss')
+        .pipe(rename('style.min.css'))
+        .pipe(sass())
+        .pipe(csso())
+        .pipe(gulp.dest('dist'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
 });
 
 //SCRIPT concat minify
-gulp.task('scripts', function() {
-  return gulp.src('js/*.js')
-    .pipe(concat('main.min.js'))
-    .pipe(uglify())
-    .pipe(gulp.dest('dist'))
-    .pipe(browsersync.reload({
-      stream: true
-    }));
+gulp.task('scripts', function () {
+    return gulp.src('js/*.js')
+        .pipe(concat('main.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('dist'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
 });
 
 //VENDOR
-gulp.task('vendor', function() {
-  return gulp.src(VENDORS)
-    .pipe(gulp.dest('dist/vendor'))
-    .pipe(browsersync.reload({
-      stream: true
-    }));
+gulp.task('vendor', function () {
+    return gulp.src(VENDORS)
+        .pipe(gulp.dest('dist/vendor'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
 });
 
 //WATCH changes
-gulp.task('watch', ['compile'], function() {
-  gulp.watch('html/*.html', ['html']);
-  gulp.watch('templates/*.html', ['templates']);
-  gulp.watch('assets/**', ['assets']);
-  gulp.watch('data/**', ['data', 'dataBlogArray']);
-  gulp.watch('config/**', ['config']);
-  gulp.watch('js/*.js', ['scripts']);
-  gulp.watch('scss/*.scss', ['scss']);
+gulp.task('watch', ['compile'], function () {
+    gulp.watch('html/*.html', ['html']);
+    gulp.watch('templates/*.html', ['templates']);
+    gulp.watch('assets/**', ['assets']);
+    gulp.watch('data/**', ['data', 'dataBlogArray']);
+    gulp.watch('config/**', ['config']);
+    gulp.watch('js/*.js', ['scripts']);
+    gulp.watch('scss/*.scss', ['scss']);
+
+});
+
+//Watch dev 
+gulp.task('watch-D', ['compile-D'], function () {
+    gulp.watch('html/*.html', ['html']);
+    gulp.watch('templates/*.html', ['templates']);
+    gulp.watch('assets/**', ['assets']);
+    gulp.watch('data/**', ['data', 'dataBlogArray']);
+    gulp.watch('config/**', ['config']);
+    gulp.watch('js/*.js', ['scripts-D']);
+    gulp.watch('scss/*.scss', ['scss']);
 
 });
 
@@ -201,21 +213,44 @@ gulp.task('compile', ['vendor', 'html', 'templates', 'assets', 'data', 'dataBlog
 ///////
 
 //SCRIPT concat without minify
-gulp.task('scripts-D', function() {
-  return gulp.src('js/*.js')
-    .pipe(concat('main.min.js'))
-    .pipe(gulp.dest('dist'))
-    .pipe(browsersync.reload({
-      stream: true
-    }));
+gulp.task('scripts-D', function () {
+    return gulp.src('js/*.js')
+        .pipe(concat('main.min.js'))
+        .pipe(gulp.dest('dist'))
+        .pipe(browsersync.reload({
+            stream: true
+        }));
 });
+
+//COMPILE dev 
+gulp.task('compile-D', ['vendor', 'html', 'templates', 'assets', 'data', 'dataBlogArray', 'scss', 'scripts-D']);
 
 //GHPAGES
-gulp.task('ghpages', function() {
-  return gulp.src('dist/**')
-    .pipe(gulp.dest('../RoboticsSiteGhpages'));
+gulp.task('ghpages', function () {
+    return gulp.src('dist/**')
+        .pipe(gulp.dest('../RoboticsSiteGhpages'));
 });
 
+//Start Server 
+gulp.task('start', ['compile', 'bs', 'watch'], function () {
+    util.log('\n' +
+        '    $$$$$\\                                                        $$\\ \n' +
+        '    \\__$$ |                                                       $$ |\n' +
+        '       $$ | $$$$$$\\ $$\\    $$\\ $$$$$$\\   $$$$$$\\   $$$$$$\\   $$$$$$$ |\n' +
+        '       $$ | \\____$$\\\\$$\\  $$  |\\____$$\\ $$  __$$\\ $$  __$$\\ $$  __$$ |\n' +
+        ' $$\\   $$ | $$$$$$$ |\\$$\\$$  / $$$$$$$ |$$ /  $$ |$$ /  $$ |$$ /  $$ |\n' +
+        ' $$ |  $$ |$$  __$$ | \\$$$  / $$  __$$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |\n' +
+        ' \\$$$$$$  |\\$$$$$$$ |  \\$  /  \\$$$$$$$ |\\$$$$$$$ |\\$$$$$$  |\\$$$$$$$ |\n' +
+        '  \\______/  \\_______|   \\_/    \\_______| \\____$$ | \\______/  \\_______|\n' +
+        '                                       $$\\   $$ |                    \n' +
+        '                                       \\$$$$$$  |                    \n' +
+        '                                        \\______/                     \n' +
 
-//DEFAULT run server
-gulp.task('default', ['compile', 'bs', 'watch']);
+        '//LOCALHOST:' + CONFIG.port + '//\n'
+);});
+
+//Start Server dev 
+gulp.task('start-D', ['compile-D', 'bs', 'watch-D']);
+
+//DEFAULT run server 
+gulp.task('default', ['start']);
