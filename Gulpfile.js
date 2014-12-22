@@ -226,7 +226,7 @@ gulp.task('scripts-D', function () {
 gulp.task('compile-D', ['vendor', 'html', 'templates', 'assets', 'data', 'dataBlogArray', 'scss', 'scripts-D']);
 
 //GHPAGES
-gulp.task('ghpages', function () {
+gulp.task('ghpages', ['compile'], function () {
     return gulp.src('dist/**')
         .pipe(gulp.dest('../RoboticsSiteGhpages'));
 });

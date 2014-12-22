@@ -8,6 +8,20 @@
         </div>
 
         <form name="godPost" class="css-form form-horizontal" novalidate ng-controller="CPostCreator as post">
+           <div class="row">
+               <div class="col-md-12">
+                   <div class="form-group">
+                       <label>Post ID [format: (4 digit season year)-(4 digit blog post number); example for season 15, blog post 6: 2015-0006]</label>
+                       <div class="input-group">
+                           <input required type="text" name="id" ng-model="post.thePost.id" ui-mask="9999-9999" placeholder="year-post" ng-pattern="/\d{8}/" class="form-control">
+                            <span class="input-group-addon">
+                            <span ng-show="godPost.id.$invalid && !godPost.id.$pristine" class="label label-warning"><i class="fa fa-warning fa-lg"></i> ID must be filled</span>
+                            <span ng-show="godPost.id.$valid && !godPost.id.$pristine"><span class="label label-success"><i class="fa fa-check"></i></span></span>
+                            </span>
+                       </div>
+                   </div>
+               </div>
+           </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -96,7 +110,7 @@
                         <div class="btn-group" aria-label="...">
                             <button type="button" class="btn btn-default" ng-click="post.addSection(post.SECTION_TYPE.text)">Add Text Section</button>
                             <button type="button" class="btn btn-default" ng-click="post.addSection(post.SECTION_TYPE.image)">Add Image Section</button>
-                            <button type="button" class="btn btn-default" ng-click="post.addSection(post.SECTION_TYPE.video)">Add Video Section</button>
+                            <button disabled="disabled" type="button" class="btn btn-default" ng-click="post.addSection(post.SECTION_TYPE.video)">Add Video Section</button>
                         </div>
                     </div>
                 </div>
@@ -106,7 +120,7 @@
                 <div class="col-md-12">
                     <div class="hcenter">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-primary" ng-click="post.exportJson">Generage God Post JSON</button>
+                            <button type="button" class="btn btn-primary" ng-click="post.exportJson()">Generage God Post JSON</button>
                         </div>
                     </div>
                 </div>

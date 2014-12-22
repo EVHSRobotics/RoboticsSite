@@ -111,13 +111,13 @@ Javagod.factory('FGodPostSection', ['GOD_POST_SECTION_TYPE',
 Javagod.controller('CPostCreator', ['$scope', 'FGodPostSection', 'GOD_POST_SECTION_TYPE',
     function ($scope, PostSection, GOD_POST_SECTION_TYPE) {
         this.thePost = {
+            id: "",
             title: "",
             subtitle: "",
             date: "",
             author: "",
             sections: []
         };
-
 
         this.SECTION_TYPE = GOD_POST_SECTION_TYPE;
 
@@ -135,9 +135,12 @@ Javagod.controller('CPostCreator', ['$scope', 'FGodPostSection', 'GOD_POST_SECTI
         };
 
         this.addSection(GOD_POST_SECTION_TYPE.text);
-        
-        this.exportJson = function() {
-            
+
+        this.exportJson = function () {
+            var export = document.createElement('a');
+            export.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.thePost)));
+            export.setAttribute('download', 'godPost' + this.thePost.id + '.json');
+            export.click();
         };
 }]);
 
