@@ -8,7 +8,7 @@
 ##     ## ##     ## #### ##    ##
 */
 
-var Robotics = angular.module('Robotics', ['ui.router', 'ui.utils', 'headroom', 'HeadroomComponents', 'Config', 'Javagod', 'Scroll', 'LogoComponents']);
+var Robotics = angular.module('Robotics', ['ui.router', 'ui.utils', 'headroom', 'HeadroomComponents', 'Config', 'Javagod', 'JavagodUtil', 'Scroll', 'LogoComponents']);
 /*
       #
       #   ##   #    #   ##    ####   ####  #####

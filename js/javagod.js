@@ -9,7 +9,7 @@ Javagod.provider('FJavagod', [
             return {
                 data: aData,
                 prefix: aPrefix,
-                postArray: aPostArray 
+                postArray: aPostArray
             };
         };
 
@@ -20,17 +20,6 @@ Javagod.provider('FJavagod', [
         var $get = ['$http',
             function ($http) {
                 var blogs = _blogs;
-                
-                var latestPost = '';
-
-                var appendZeroes = function (num, length) {
-                    num = '' + num;
-                    if (num.length >= length) {
-                        return num;
-                    } else {
-                        return appendZeroes('0' + num, length);
-                    }
-                };
 
                 var getPostJson = function (blogName, postId, callback) {
                     var blog = blogs[blogName];
@@ -51,7 +40,7 @@ Javagod.provider('FJavagod', [
                         }
                     });
                 };
-                
+
                 return {
                     getPostJson: getPostJson,
                     getPostArray: getPostArray
@@ -146,12 +135,12 @@ Javagod.directive('javagodBlogNav', function () {
         },
         templateUrl: 'templates/godBlogNav.html',
         controller: ['$scope', 'FJavagod',
-        function ($scope, FJavagod) {
+            function ($scope, FJavagod) {
                 FJavagod.getPostArray($scope.blogName, function (data) {
                     $scope.blogNav = data;
                 });
-        }
-      ]
+            }
+        ]
         //NEED LINK FUNCTION TO BIND CLASS ACTIVE TO ACTIVE ROUTE
     };
 });
