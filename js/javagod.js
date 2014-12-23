@@ -9,7 +9,7 @@ Javagod.provider('FJavagod', [
             return {
                 data: aData,
                 prefix: aPrefix,
-                postArray: aPostArray, 
+                postArray: aPostArray 
             };
         };
 
