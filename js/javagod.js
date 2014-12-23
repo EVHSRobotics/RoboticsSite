@@ -2,30 +2,26 @@ var Javagod = angular.module('Javagod', []);
 
 Javagod.provider('FJavagod', [
 
-  function () {
-        var _dataUrl = 'data_god_blog';
-        var _prefix = 'godPost';
-        var _dataPostArrayUrl = 'data_god_blog';
+    function (BlogMeta) {
+        var _blogs = {};
 
-        var setDataUrl = function (url) {
-            _dataUrl = url;
+        var BlogMeta = function (aData, aPrefix, aPostArray) {
+            return {
+                data: aData,
+                prefix: aPrefix,
+                postArray: aPostArray, 
+            };
         };
 
-        var setPrefix = function (prefix) {
-            _prefix = prefix;
-        };
-
-        var setPostArrayUrl = function (url) {
-            _dataPostArrayUrl = url;
+        var createBlog = function (name, aData, aPrefix, aPostArray) {
+            _blogs[name] = new BlogMeta(aData, aPrefix, aPostArray);
         };
 
         var $get = ['$http',
-      function ($http) {
-                var dataUrl = _dataUrl;
-                var prefix = _prefix;
-                var dataPostArrayUrl = _dataPostArrayUrl;
-
-                var postArray = $http.get(dataPostArrayUrl);
+            function ($http) {
+                var blogs = _blogs;
+                
+                var latestPost = '';
 
                 var appendZeroes = function (num, length) {
                     num = '' + num;
@@ -36,9 +32,9 @@ Javagod.provider('FJavagod', [
                     }
                 };
 
-                var getPostJson = function (postId, callback) {
-                    postId = appendZeroes(postId, 4);
-                    $http.get(dataUrl + '/' + prefix + postId + '.json')
+                var getPostJson = function (blogName, postId, callback) {
+                    var blog = blogs[blogName];
+                    $http.get(blog.data + '/' + blog.prefix + postId + '.json')
                         .success(function (data, status, headers, config) {
                             if (callback) {
                                 callback(data);
@@ -48,26 +44,24 @@ Javagod.provider('FJavagod', [
                         });
                 };
 
-                var getPostArray = function (callback) {
-                    postArray.success(function (data, status, headers, config) {
+                var getPostArray = function (blogName, callback) {
+                    $http.get(blogs[blogName].postArray).success(function (data, status, headers, config) {
                         if (callback) {
                             callback(data);
                         }
                     });
                 };
-
+                
                 return {
                     getPostJson: getPostJson,
                     getPostArray: getPostArray
                 };
-      }
-    ];
+            }
+        ];
 
         return {
             $get: $get,
-            setDataUrl: setDataUrl,
-            setPrefix: setPrefix,
-            setPostArrayUrl: setPostArrayUrl
+            createBlog: createBlog
         };
   }
 ]);
@@ -147,11 +141,13 @@ Javagod.controller('CPostCreator', ['$scope', 'FGodPostSection', 'GOD_POST_SECTI
 Javagod.directive('javagodBlogNav', function () {
     return {
         restrict: 'A',
-        scope: {},
+        scope: {
+            blogName: '@javagodBlogNav'
+        },
         templateUrl: 'templates/godBlogNav.html',
         controller: ['$scope', 'FJavagod',
         function ($scope, FJavagod) {
-                FJavagod.getPostArray(function (data) {
+                FJavagod.getPostArray($scope.blogName, function (data) {
                     $scope.blogNav = data;
                 });
         }

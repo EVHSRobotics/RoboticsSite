@@ -1,18 +1,18 @@
 {
-    "id": "0001",
-    "title": "Second Post", 
-    "subtitle": "so cool", 
-    "date": "20141126", 
-    "author": "kevin", 
+    "id": "20150001",
+    "title": "First Post",
+    "subtitle": "the very first post",
+    "date": "20141001",
+    "author": "kevin",
     "sections": [
         {
-            "type": "text", 
-            "content": "Wow another post already. He thinks that he is so cool."
-        } , 
+            "type": "text",
+            "content": "Hello! This is the very first post to begin our new blog!"
+        },
         {
-            "type": "image", 
-            "content": "data/data_images/GodRichard.jpg", 
-            "caption": "the god and his child"
+            "type": "image",
+            "content": "data/data_images/GodRichard2.jpg", 
+            "caption": "the god is going to levitate the ball"
         }
     ]
 }

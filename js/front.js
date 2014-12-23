@@ -29,9 +29,7 @@ var Robotics = angular.module('Robotics', ['ui.router', 'ui.utils', 'headroom', 
 
 Robotics.config(['FJavagodProvider',
   function (FJavagodProvider) {
-        FJavagodProvider.setDataUrl('data/data_god_blog');
-        FJavagodProvider.setPrefix('godPost');
-        FJavagodProvider.setPostArrayUrl('data/godBlogPostArray.json');
+        FJavagodProvider.createBlog('proto', 'data/data_god_blog', 'godPost', 'data/godBlogPostArray.json')
   }
 ]);
 
@@ -98,12 +96,23 @@ Robotics.config(['$stateProvider', '$urlRouterProvider',
                 'root@': {
                     templateUrl: 'templates/godBlog.html',
                     controller: ['$state', '$scope', 'FJavagod',
-            function ($state, $scope, FJavagod) {
-                            FJavagod.getPostJson($state.params.postId, function (data) {
-                                $scope.god = data;
-                            });
-            }
-          ]
+                        function ($state, $scope, FJavagod) {
+                            var blogId = 'proto'
+                            var id = $state.params.postId;
+                            if (id == '') {
+                                FJavagod.getPostArray(blogId, function (data) {
+                                    id = data[0].id;
+                                    FJavagod.getPostJson(blogId, id, function (data) {
+                                        $scope.god = data;
+                                    });
+                                });
+                            } else {
+                                FJavagod.getPostJson(blogId, id, function (data) {
+                                    $scope.god = data;
+                                });
+                            }
+                        }
+                    ]
                 },
                 'post@blog': {
                     templateUrl: 'templates/godBlogPost.html'
