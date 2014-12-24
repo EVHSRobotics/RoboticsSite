@@ -19,9 +19,10 @@ JavagodUtil.directive('godCountdown', [function() {
         restrict: 'A', 
         scope: {
             end: '@godCountdown', 
-            postMessage: '@godCountdownPost'
+            postMessage: '@godCountdownPost', 
+            id: '@godCountdownId'
         }, 
-        template: '<h1>{{time}}<br><small>{{postMessage}}</small></h1>', 
+        template: '<h1 id="{{id}}">{{time}}<br><small>{{postMessage}}</small></h1>', 
         controller: ['$scope', '$interval', function($scope, $interval) {
             var timerDaemon = $interval(function() {
                 $scope.time = moment.duration(moment($scope.end).valueOf() - moment().valueOf()).format('D | hh : mm : ss');
