@@ -65,7 +65,7 @@ Robotics.config(['$stateProvider', '$urlRouterProvider',
             'root@': {
                 templateUrl: 'templates/home.html',
                 controller: ['$state', '$scope', 'scrollFactory',
-          function ($state, $scope, scrollFactory) {
+                    function ($state, $scope, scrollFactory) {
                         $scope.$on('$viewContentLoaded', function (event) {
                             //PREVENT DUPLICATE CALLS
                             console.log('start-----------------------');
@@ -73,11 +73,14 @@ Robotics.config(['$stateProvider', '$urlRouterProvider',
                             scrollFactory.sectionIdScroll(125);
                         });
 
-          }
-        ]
+                    }
+                ]
             },
             'about@home': {
                 templateUrl: 'templates/home.about.html'
+            }, 
+            'bios@home': {
+                templateUrl: 'templates/home.bios.html'
             }
         };
 

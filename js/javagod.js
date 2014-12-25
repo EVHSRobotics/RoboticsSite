@@ -1,8 +1,12 @@
 var Javagod = angular.module('Javagod', []);
 
+/////////
+//BLOGS//
+/////////
+
 Javagod.provider('FJavagod', [
 
-    function (BlogMeta) {
+    function () {
         var _blogs = {};
 
         var BlogMeta = function (aData, aPrefix, aPostArray) {
@@ -16,6 +20,10 @@ Javagod.provider('FJavagod', [
         var createBlog = function (name, aData, aPrefix, aPostArray) {
             _blogs[name] = new BlogMeta(aData, aPrefix, aPostArray);
         };
+
+        var deleteBlog = function (name) {
+            delete _blogs[name];
+        }
 
         var $get = ['$http',
             function ($http) {
@@ -50,10 +58,58 @@ Javagod.provider('FJavagod', [
 
         return {
             $get: $get,
-            createBlog: createBlog
+            createBlog: createBlog,
+            deleteBlog: deleteBlog
         };
   }
 ]);
+
+/////////
+//PAGES//
+/////////
+
+Javagod.provider('FJavagodPage', [
+
+    function () {
+        var _pages = {};
+
+        var PageMeta = function (aData) {
+            return {
+                data: aData
+            };
+        }
+
+        var createPage = function (name, aData) {
+            _pages[name] = new PageMeta(aData);
+        };
+
+        var deletePage = function (name) {
+            delete _pages[name];
+        }
+
+        var $get = [
+
+            function () {
+                var pages = _pages;
+
+                return {
+
+
+                }
+            }
+        ];
+
+        return {
+            $get: $get,
+            createPage: createPage,
+            deletePage: deletePage
+        };
+    }
+]);
+
+////////////////
+//POST CREATOR//
+////////////////
 
 Javagod.constant('GOD_POST_SECTION_TYPE', {
     text: 0x0010,
@@ -126,6 +182,45 @@ Javagod.controller('CPostCreator', ['$scope', 'FGodPostSection', 'GOD_POST_SECTI
             export.click();
         };
 }]);
+
+////////////////
+//PAGE CREATOR//
+////////////////
+
+Javagod.factory('FGodPageSection', [
+    var PageSection = function () {
+        return {
+            state: "",
+            title: "", 
+            subtitle: "", 
+            content: "" //this should be a url to an html template
+        };
+    };
+
+    return PageSection;
+]);
+
+Javagod.controller('CPageCreator', ['$scope', 'FGodPageSection',
+    function ($scope, FGodPageSection) {
+        this.thePage = {
+            state: "",
+            content: "", //this will be a url to an html template 
+            sections: []
+        };
+
+        this.addSection = function () {
+            this.thePage.sections.push(new PageSection());
+        };
+
+        this.deleteSection = function (sectId) {
+            this.thePage.sections.splice(sectId, 1);
+        };
+    }
+]);
+
+///////////////////
+//BLOG NAVIGATION//
+///////////////////
 
 Javagod.directive('javagodBlogNav', function () {
     return {
