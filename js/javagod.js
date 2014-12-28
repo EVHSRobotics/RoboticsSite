@@ -4,11 +4,21 @@ var Javagod = angular.module('Javagod', ['ui.router']);
 //BLOGS//
 /////////
 
-Javagod.config(['$stateProvider',
+Javagod.provider('FJavagod', ['$stateProvider',
     function ($stateProvider) {
+        var _blogs = {};
+
+        var BlogMeta = function (aData, aPrefix, aPostArray) {
+            return {
+                data: aData,
+                prefix: aPrefix,
+                postArray: aPostArray
+            };
+        };
+
         $stateProvider.state('blog', {
             abstract: true,
-            url: '/blog', //try url with blogId parameter 
+            url: '/blog',
             views: {
                 'root@': {
                     templateUrl: 'templates/godBlog.html',
@@ -24,46 +34,24 @@ Javagod.config(['$stateProvider',
                 }
             }
         });
-    }
-]);
-
-Javagod.provider('FJavagod', [
-
-    function () {
-
-        var _blogs = {};
-
-        var BlogMeta = function (aData, aPrefix, aPostArray) {
-            return {
-                data: aData,
-                prefix: aPrefix,
-                postArray: aPostArray
-            };
-        };
 
         var createBlog = function (name, aData, aPrefix, aPostArray) {
             _blogs[name] = new BlogMeta(aData, aPrefix, aPostArray);
-            console.count(name);
-            Javagod.config(['$stateProvider',
-                function ($stateProvider) {
-                    console.count(name);
-                    $stateProvider.state('blog.' + name, {
-                        url: '/' + name + '/:postId',
-                        views: {
-                            'post@blog': {
-                                templateUrl: 'templates/godBlogPost.html',
-                                controller: ['$state', '$scope',
-                                    function ($state, $scope) {
-                                        $scope.getPost(name, $state.params.postId);
-                                    }
-                                ]
+            $stateProvider.state('blog.' + name, {
+                url: '/' + name + '/:postId',
+                views: {
+                    'post@blog': {
+                        templateUrl: 'templates/godBlogPost.html',
+                        controller: ['$state', '$scope',
+                            function ($state, $scope) {
+                                $scope.getPost(name, $state.params.postId);
                             }
-                        }
-                    });
-                    console.count(name);
+                        ]
+                    }
                 }
-            ]);
+            });
         };
+
 
         var deleteBlog = function (name) {
             delete _blogs[name];
@@ -120,35 +108,15 @@ Javagod.provider('FJavagod', [
             createBlog: createBlog,
             deleteBlog: deleteBlog
         };
-  }
+    }
 ]);
 
 /////////
 //PAGES//
 /////////
 
-Javagod.config(['$stateProvider',
+Javagod.provider('FJavagodPage', ['$stateProvider',
     function ($stateProvider) {
-        $stateProvider.state('page', {
-            abstract: true,
-            url: '',
-            views: {
-                'root@': {
-                    templateUrl: 'templates/godBlog.html',
-                    controller: ['$state', '$scope', 'FJavagod',
-                        function ($state, $scope, FJavagod) {
-
-                        }
-                    ]
-                }
-            }
-        });
-    }
-]);
-
-Javagod.provider('FJavagodPage', [
-
-    function () {
         var _pages = {};
 
         var PageMeta = function (aData) {
@@ -159,6 +127,19 @@ Javagod.provider('FJavagodPage', [
 
         var createPage = function (name, aData) {
             _pages[name] = new PageMeta(aData);
+            $stateProvider.state(name, {
+                url: '/' + name,
+                views: {
+                    'root@': {
+                        templateUrl: '',
+                        controller: ['$state', '$scope', 'FJavagodPage',
+                            function ($state, $scope, FJavagodPage) {
+
+                            }
+                        ]
+                    }
+                }
+            });
         };
 
         var deletePage = function (name) {
