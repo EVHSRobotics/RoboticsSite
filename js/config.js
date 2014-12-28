@@ -22,7 +22,7 @@ Config.factory('configFactory', [
                     },
                     {
                         "title": "Blog",
-                        "state": "blog({postId:''})"
+                        "state": "blog.proto({postId:''})"
                     }
                 ]
             },

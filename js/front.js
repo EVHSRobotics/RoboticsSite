@@ -29,7 +29,7 @@ var Robotics = angular.module('Robotics', ['ui.router', 'ui.utils', 'headroom', 
 
 Robotics.config(['FJavagodProvider',
   function (FJavagodProvider) {
-        FJavagodProvider.createBlog('proto', 'data/data_god_blog', 'godPost', 'data/godBlogPostArray.json')
+        FJavagodProvider.createBlog('proto', 'data/data_god_blog', 'godPost', 'data/godBlogPostArray.json');
   }
 ]);
 
@@ -78,7 +78,7 @@ Robotics.config(['$stateProvider', '$urlRouterProvider',
             },
             'about@home': {
                 templateUrl: 'templates/home.about.html'
-            }, 
+            },
             'bios@home': {
                 templateUrl: 'templates/home.bios.html'
             }
@@ -89,38 +89,6 @@ Robotics.config(['$stateProvider', '$urlRouterProvider',
             url: '/home/:sectionId',
 
             views: homeViews
-        });
-
-        //NEEDS TO GO IN A SEPARATE MODULE
-        //blog
-        $stateProvider.state('blog', {
-            url: '/blog/:postId',
-            views: {
-                'root@': {
-                    templateUrl: 'templates/godBlog.html',
-                    controller: ['$state', '$scope', 'FJavagod',
-                        function ($state, $scope, FJavagod) {
-                            var blogId = 'proto'
-                            var id = $state.params.postId;
-                            if (id == '') {
-                                FJavagod.getPostArray(blogId, function (data) {
-                                    id = data[0].id;
-                                    FJavagod.getPostJson(blogId, id, function (data) {
-                                        $scope.god = data;
-                                    });
-                                });
-                            } else {
-                                FJavagod.getPostJson(blogId, id, function (data) {
-                                    $scope.god = data;
-                                });
-                            }
-                        }
-                    ]
-                },
-                'post@blog': {
-                    templateUrl: 'templates/godBlogPost.html'
-                }
-            }
         });
 
         //static site engine data creator
@@ -154,8 +122,11 @@ Robotics.config(['$stateProvider', '$urlRouterProvider',
  #####   ####  #    #   #   #    #  ####  ###### ###### ###### #    #
 */
 
-Robotics.controller('mainController', ['configFactory',
-  function (configFactory) {
+var state;
+
+Robotics.controller('mainController', ['configFactory', '$state',
+  function (configFactory, $state) {
         this.tabs = configFactory.get('navbar', 'tabs');
+        state = $state;
   }
 ]);

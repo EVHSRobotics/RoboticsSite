@@ -1,12 +1,36 @@
-var Javagod = angular.module('Javagod', []);
+var Javagod = angular.module('Javagod', ['ui.router']);
 
 /////////
 //BLOGS//
 /////////
 
+Javagod.config(['$stateProvider',
+    function ($stateProvider) {
+        $stateProvider.state('blog', {
+            url: '/blog',
+            views: {
+                'root@': {
+                    //abstract: true, <-- uncomment this
+                    templateUrl: 'templates/godBlog.html',
+                    controller: ['$state', '$scope', 'FJavagod',
+                        function ($state, $scope, FJavagod) {
+                            $scope.getPost = function (blog, post) {
+                                FJavagod.getPostJson(blog, post, function (data) {
+                                    $scope.god = data;
+                                });
+                            };
+                        }
+                    ]
+                }
+            }
+        });
+    }
+]);
+
 Javagod.provider('FJavagod', [
 
     function () {
+
         var _blogs = {};
 
         var BlogMeta = function (aData, aPrefix, aPostArray) {
@@ -19,26 +43,58 @@ Javagod.provider('FJavagod', [
 
         var createBlog = function (name, aData, aPrefix, aPostArray) {
             _blogs[name] = new BlogMeta(aData, aPrefix, aPostArray);
+            Javagod.config(['$stateProvider',
+                function ($stateProvider) {
+                    $stateProvider.state('blog.' + name, {
+                        url: '/' + name + '/:postId',
+                        views: {
+                            'post@blog': {
+                                templateUrl: 'templates/godBlogPost.html',
+                                controller: ['$state', '$scope',
+                                    function ($state, $scope) {
+                                        $scope.getPost(name, $state.params.postId);
+                                    }
+                                ]
+                            }
+                        }
+                    });
+                }
+            ]);
         };
 
         var deleteBlog = function (name) {
             delete _blogs[name];
-        }
+        };
 
         var $get = ['$http',
             function ($http) {
                 var blogs = _blogs;
 
                 var getPostJson = function (blogName, postId, callback) {
-                    var blog = blogs[blogName];
-                    $http.get(blog.data + '/' + blog.prefix + postId + '.json')
-                        .success(function (data, status, headers, config) {
-                            if (callback) {
-                                callback(data);
-                            }
-                        }).error(function (data, status, headers, config) {
-                            console.log('javagod failed to retrieve: ' + prefix + postId + '.json', '\nstatus: ' + status);
+                    if (postId == '') {
+                        getPostArray(blogName, function (data) {
+                            postId = data[0].id;
+                            var blog = blogs[blogName];
+                            $http.get(blog.data + '/' + blog.prefix + postId + '.json')
+                                .success(function (data, status, headers, config) {
+                                    if (callback) {
+                                        callback(data);
+                                    }
+                                }).error(function (data, status, headers, config) {
+                                    console.log('javagod failed to retrieve: ' + blog.prefix + postId + '.json', '\nstatus: ' + status);
+                                });
                         });
+                    } else {
+                        var blog = blogs[blogName];
+                        $http.get(blog.data + '/' + blog.prefix + postId + '.json')
+                            .success(function (data, status, headers, config) {
+                                if (callback) {
+                                    callback(data);
+                                }
+                            }).error(function (data, status, headers, config) {
+                                console.log('javagod failed to retrieve: ' + blog.prefix + postId + '.json', '\nstatus: ' + status);
+                            });
+                    }
                 };
 
                 var getPostArray = function (blogName, callback) {
@@ -77,7 +133,7 @@ Javagod.provider('FJavagodPage', [
             return {
                 data: aData
             };
-        }
+        };
 
         var createPage = function (name, aData) {
             _pages[name] = new PageMeta(aData);
@@ -85,7 +141,7 @@ Javagod.provider('FJavagodPage', [
 
         var deletePage = function (name) {
             delete _pages[name];
-        }
+        };
 
         var $get = [
 
@@ -94,8 +150,7 @@ Javagod.provider('FJavagodPage', [
 
                 return {
 
-
-                }
+                };
             }
         ];
 
@@ -176,10 +231,10 @@ Javagod.controller('CPostCreator', ['$scope', 'FGodPostSection', 'GOD_POST_SECTI
         this.addSection(GOD_POST_SECTION_TYPE.text);
 
         this.exportJson = function () {
-            var export = document.createElement('a');
-            export.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.thePost)));
-            export.setAttribute('download', 'godPost' + this.thePost.id + '.json');
-            export.click();
+            var e = document.createElement('a');
+            e.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(this.thePost)));
+            e.setAttribute('download', 'godPost' + this.thePost.id + '.json');
+            e.click();
         };
 }]);
 
@@ -188,20 +243,23 @@ Javagod.controller('CPostCreator', ['$scope', 'FGodPostSection', 'GOD_POST_SECTI
 ////////////////
 
 Javagod.factory('FGodPageSection', [
-    var PageSection = function () {
-        return {
-            state: "",
-            title: "", 
-            subtitle: "", 
-            content: "" //this should be a url to an html template
-        };
-    };
 
-    return PageSection;
+    function () {
+        var PageSection = function () {
+            return {
+                state: "",
+                title: "",
+                subtitle: "",
+                content: "" //this should be a url to an html template
+            };
+        };
+
+        return PageSection;
+    }
 ]);
 
 Javagod.controller('CPageCreator', ['$scope', 'FGodPageSection',
-    function ($scope, FGodPageSection) {
+    function ($scope, PageSection) {
         this.thePage = {
             state: "",
             content: "", //this will be a url to an html template 
