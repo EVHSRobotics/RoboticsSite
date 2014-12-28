@@ -7,10 +7,10 @@ var Javagod = angular.module('Javagod', ['ui.router']);
 Javagod.config(['$stateProvider',
     function ($stateProvider) {
         $stateProvider.state('blog', {
-            url: '/blog',
+            abstract: true,
+            url: '/blog', //try url with blogId parameter 
             views: {
                 'root@': {
-                    //abstract: true, <-- uncomment this
                     templateUrl: 'templates/godBlog.html',
                     controller: ['$state', '$scope', 'FJavagod',
                         function ($state, $scope, FJavagod) {
@@ -43,8 +43,10 @@ Javagod.provider('FJavagod', [
 
         var createBlog = function (name, aData, aPrefix, aPostArray) {
             _blogs[name] = new BlogMeta(aData, aPrefix, aPostArray);
+            console.count(name);
             Javagod.config(['$stateProvider',
                 function ($stateProvider) {
+                    console.count(name);
                     $stateProvider.state('blog.' + name, {
                         url: '/' + name + '/:postId',
                         views: {
@@ -58,6 +60,7 @@ Javagod.provider('FJavagod', [
                             }
                         }
                     });
+                    console.count(name);
                 }
             ]);
         };
@@ -81,7 +84,7 @@ Javagod.provider('FJavagod', [
                                         callback(data);
                                     }
                                 }).error(function (data, status, headers, config) {
-                                    console.log('javagod failed to retrieve: ' + blog.prefix + postId + '.json', '\nstatus: ' + status);
+                                    console.error('javagod failed to retrieve: ' + blog.prefix + postId + '.json', '\nstatus: ' + status);
                                 });
                         });
                     } else {
@@ -92,7 +95,7 @@ Javagod.provider('FJavagod', [
                                     callback(data);
                                 }
                             }).error(function (data, status, headers, config) {
-                                console.log('javagod failed to retrieve: ' + blog.prefix + postId + '.json', '\nstatus: ' + status);
+                                console.error('javagod failed to retrieve: ' + blog.prefix + postId + '.json', '\nstatus: ' + status);
                             });
                     }
                 };
@@ -123,6 +126,25 @@ Javagod.provider('FJavagod', [
 /////////
 //PAGES//
 /////////
+
+Javagod.config(['$stateProvider',
+    function ($stateProvider) {
+        $stateProvider.state('page', {
+            abstract: true,
+            url: '',
+            views: {
+                'root@': {
+                    templateUrl: 'templates/godBlog.html',
+                    controller: ['$state', '$scope', 'FJavagod',
+                        function ($state, $scope, FJavagod) {
+
+                        }
+                    ]
+                }
+            }
+        });
+    }
+]);
 
 Javagod.provider('FJavagodPage', [
 
@@ -297,3 +319,19 @@ Javagod.directive('javagodBlogNav', function () {
         //NEED LINK FUNCTION TO BIND CLASS ACTIVE TO ACTIVE ROUTE
     };
 });
+
+console.log('%c\n' +
+    '    $$$$$\\                                                        $$\\ \n' +
+    '    \\__$$ |                                                       $$ |\n' +
+    '       $$ | $$$$$$\\ $$\\    $$\\ $$$$$$\\   $$$$$$\\   $$$$$$\\   $$$$$$$ |\n' +
+    '       $$ | \\____$$\\\\$$\\  $$  |\\____$$\\ $$  __$$\\ $$  __$$\\ $$  __$$ |\n' +
+    ' $$\\   $$ | $$$$$$$ |\\$$\\$$  / $$$$$$$ |$$ /  $$ |$$ /  $$ |$$ /  $$ |\n' +
+    ' $$ |  $$ |$$  __$$ | \\$$$  / $$  __$$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |\n' +
+    ' \\$$$$$$  |\\$$$$$$$ |  \\$  /  \\$$$$$$$ |\\$$$$$$$ |\\$$$$$$  |\\$$$$$$$ |\n' +
+    '  \\______/  \\_______|   \\_/    \\_______| \\____$$ | \\______/  \\_______|\n' +
+    '                                       $$\\   $$ |                    \n' +
+    '                                       \\$$$$$$  |                    \n' +
+    '                                        \\______/                     \n' +
+    '\n' +
+    'Kevin Wang: https://github.com/wangkevin1                            \n\n ',
+    'font-family: Consolas, monospace; color: #bc2200');
