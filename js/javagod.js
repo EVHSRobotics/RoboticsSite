@@ -86,6 +86,7 @@ Javagod.provider('FJavagodBlog', ['$stateProvider',
                     }
                 }
             });
+            return this;
         };
 
         var $get = ['$http',
@@ -258,7 +259,9 @@ Javagod.provider('FJavagodPage', ['$stateProvider',
                             function ($state, $scope, $uiViewScroll) {
                                 $scope.$on('$stateChangeSuccess', function (e) {
                                     if ($state.params.sectionId == '') {
-                                        $('body').animate({scrollTop: '0'}, 64);
+                                        $('body').animate({
+                                            scrollTop: '0'
+                                        }, 64);
                                     } else {
                                         $uiViewScroll($('#' + $state.params.sectionId));
                                     }
@@ -268,6 +271,7 @@ Javagod.provider('FJavagodPage', ['$stateProvider',
                     }
                 }
             });
+            return this;
         };
 
         var $get = [
@@ -284,6 +288,60 @@ Javagod.provider('FJavagodPage', ['$stateProvider',
         return {
             $get: $get,
             createPage: createPage
+        };
+    }
+]);
+
+//////////////////
+//NAVIGATION BAR//
+//////////////////
+
+Javagod.provider('FJavagodNav', [
+
+    function () {
+        var _states = [];
+
+        var addTab = function (aName, aState) {
+            _states.push({
+                name: aName,
+                state: aState
+            });
+            return this;
+        };
+
+        var $get = [
+
+            function () {
+                var states = _states;
+
+                var getTabs = function () {
+                    return states;
+                };
+
+                return {
+                    getTabs: getTabs
+                };
+            }
+        ];
+        return {
+            $get: $get,
+            addTab: addTab
+        };
+    }
+]);
+
+Javagod.directive('godNavBar', [
+
+    function () {
+        return {
+            restrict: 'A',
+            scope: {},
+            templateUrl: 'templates/godNavBar.html',
+            controller: ['$scope', 'FJavagodNav',
+                function ($scope, FJavagodNav) {
+                    $scope.tabs = FJavagodNav.getTabs();
+                }
+            ]
         };
     }
 ]);

@@ -36,43 +36,10 @@
 
 </head>
 
-<body ng-controller="mainController as main">
-
-    <!--NAV BAR-->
-    <headroom id="mainnav" tolerance='4'>
-        <nav id="navbar" class="navbar navbar-default" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-navbar-collapse-1">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="no-style no-padding navbar-brand" ui-sref="home({sectionId:''})">
-                        <logo-icon logo-icon-size="navbar" class="inline"></logo-icon>
-                        <h2 class="inline">rototypes</h2>
-                    </a>
-                </div>
-                <div class="collapse navbar-collapse" id="bs-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li ng-repeat="tab in main.tabs"><a class="no-style" ui-sref="{{tab.state}}">{{tab.title}}</a>
-                        </li>
-                    </ul>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a class="no-style" href="#">Link</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    </headroom>
-    <div headroom-spacer="mainnav"></div>
+<body>
+    <div god-nav-bar></div>
     <!--VIEW-->
-    <div ui-view="root">
-
-    </div>
+    <div ui-view="root"></div>
     <br>
     <footer>
         <div class="container well well-sm hcenter">

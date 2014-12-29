@@ -54,7 +54,7 @@ JavagodUtil.directive('godCountdown', [
             controller: ['$scope', '$interval',
                 function ($scope, $interval) {
                     var timerDaemon = $interval(function () {
-                        $scope.time = moment.duration(moment($scope.end).valueOf() - moment().valueOf()).format('D | hh : mm : ss');
+                        $scope.time = moment.duration(moment($scope.end).valueOf() - moment().valueOf()).format('D  |  hh : mm : ss');
                     }, 1000);
         }]
         };

@@ -4,7 +4,7 @@
 //Kevin Wang: https://github.com/wangkevin1///
 //////////////////////////////////////////////
 
-var Robotics = angular.module('Robotics', ['ui.router', 'ui.utils', 'headroom', 'HeadroomComponents', 'Config', 'Javagod', 'JavagodUtil', 'LogoComponents']);
+var Robotics = angular.module('Robotics', ['ui.router', 'ui.utils', 'headroom', 'HeadroomComponents', 'Javagod', 'JavagodUtil', 'LogoComponents']);
 
 //////////////
 //PRODUCTION//
@@ -20,13 +20,21 @@ Robotics.config(['$compileProvider',
 //JAVAGOD CONFIG//
 //////////////////
 
-Robotics.config(['FJavagodBlogProvider', 'FJavagodPageProvider',
-  function (BlogProvider, PageProvider) {
+Robotics.config(['FJavagodBlogProvider', 'FJavagodPageProvider', 'FJavagodNavProvider',
+  function (BlogProvider, PageProvider, NavProvider) {
         //Proto Blog//
-        BlogProvider.createBlog('proto', 'data/data_god_blog', 'godPost', 'data/godBlogPostArray.json');
+        BlogProvider
+            .createBlog('proto', 'data/data_god_blog', 'godPost', 'data/godBlogPostArray.json');
         //Home Page//
-        PageProvider.createPage('home', 'templates/home.html');
-  }
+        PageProvider
+            .createPage('home', 'templates/home.html');
+        //NAV BAR//
+        NavProvider
+            .addTab('Home', 'home({sectionId: ""})')
+            .addTab('About', 'home({sectionId: "about"})')
+            .addTab('Officer Bios', 'home({sectionId: "bios"})')
+            .addTab('Blog', 'blog.proto({postId:""})');
+    }
 ]);
 
 ///////////////
@@ -41,20 +49,10 @@ Robotics.config(['$locationProvider',
         //$locationProvider.html5Mode(true);
   }
 ]);
-//
+
+//Redirect to Home//
 Robotics.config(['$stateProvider', '$urlRouterProvider',
   function ($stateProvider, $urlRouterProvider) {
-        //redirect to home
         $urlRouterProvider.otherwise('/home/');
-  }
-]);
-
-/////////////////////
-//GLOBAL CONTROLLER//
-/////////////////////
-
-Robotics.controller('mainController', ['configFactory', '$state',
-  function (configFactory, $state) {
-        this.tabs = configFactory.get('navbar', 'tabs');
   }
 ]);
