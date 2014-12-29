@@ -1,5 +1,11 @@
-<!--complete data spy affix-->
-<!--need to complete blog search bar-->
-<div class="list-group" data-spy="affix" data-offset-top="60" data-offset-bottom="60">
-    <a ng-repeat="post in blogNav" class="list-group-item" ui-sref="blog({postId: '{{post.id}}'})"><h5>{{post.title}} <small>{{post.subtitle}}</small></h5><small>{{post.date}}</small></a>
+<form class="">
+    <div class="form-group">
+        <label>search</label>
+        <div class="input-group">
+            <input type="text" ng-model="blogArraySearchText" placeholder="search">
+        </div>
+    </div>
+</form>
+<div class="list-group">
+    <a ng-repeat="post in blogNav | filter:blogArraySearchText" class="list-group-item" ui-sref="blog.{{blog}}({postId: '{{post.id}}'})"><h5>{{post.title}} <small>{{post.subtitle}}</small></h5><small>{{post.date | date8}}</small></a>
 </div>

@@ -1,10 +1,33 @@
-var Javagod = angular.module('Javagod', ['ui.router']);
+/*  
+ *    $$$$$\                                                        $$\
+ *    \__$$ |                                                       $$ |
+ *       $$ | $$$$$$\ $$\    $$\ $$$$$$\   $$$$$$\   $$$$$$\   $$$$$$$ |
+ *       $$ | \____$$\\$$\  $$  |\____$$\ $$  __$$\ $$  __$$\ $$  __$$ |
+ * $$\   $$ | $$$$$$$ |\$$\$$  / $$$$$$$ |$$ /  $$ |$$ /  $$ |$$ /  $$ |
+ * $$ |  $$ |$$  __$$ | \$$$  / $$  __$$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |
+ * \$$$$$$  |\$$$$$$$ |  \$  /  \$$$$$$$ |\$$$$$$$ |\$$$$$$  |\$$$$$$$ |
+ *  \______/  \_______|   \_/    \_______| \____$$ | \______/  \_______|
+ *                                       $$\   $$ |
+ *                                       \$$$$$$  |
+ *                                        \______/
+ *
+ *  Kevin Wang: https://github.com/wangkevin1
+ *
+ */
+
+var Javagod = angular.module('Javagod', ['ui.router', 'JavagodUtil']);
+
+//Javagod.config(['$uiViewScrollProvider',
+//    function ($uiViewScrollProvider) {
+//        $uiViewScrollProvider.useAnchorScroll();
+//    }
+//]);
 
 /////////
 //BLOGS//
 /////////
 
-Javagod.provider('FJavagod', ['$stateProvider',
+Javagod.provider('FJavagodBlog', ['$stateProvider',
     function ($stateProvider) {
         var _blogs = {};
 
@@ -29,6 +52,11 @@ Javagod.provider('FJavagod', ['$stateProvider',
                                     $scope.god = data;
                                 });
                             };
+                            $scope.getArray = function (blog) {
+                                FJavagod.getPostArray(blog, function (data) {
+                                    $scope.blogNav = data;
+                                });
+                            };
                         }
                     ]
                 }
@@ -47,14 +75,17 @@ Javagod.provider('FJavagod', ['$stateProvider',
                                 $scope.getPost(name, $state.params.postId);
                             }
                         ]
+                    },
+                    'nav@blog': {
+                        templateUrl: 'templates/godBlogNav.html',
+                        controller: ['$scope',
+                            function ($scope) {
+                                $scope.blog = name;
+                                $scope.getArray(name);
+                        }]
                     }
                 }
             });
-        };
-
-
-        var deleteBlog = function (name) {
-            delete _blogs[name];
         };
 
         var $get = ['$http',
@@ -105,69 +136,29 @@ Javagod.provider('FJavagod', ['$stateProvider',
 
         return {
             $get: $get,
-            createBlog: createBlog,
-            deleteBlog: deleteBlog
+            createBlog: createBlog
         };
     }
 ]);
 
-/////////
-//PAGES//
-/////////
-
-Javagod.provider('FJavagodPage', ['$stateProvider',
-    function ($stateProvider) {
-        var _pages = {};
-
-        var PageMeta = function (aData) {
-            return {
-                data: aData
-            };
-        };
-
-        var createPage = function (name, aData) {
-            _pages[name] = new PageMeta(aData);
-            $stateProvider.state(name, {
-                url: '/' + name,
-                views: {
-                    'root@': {
-                        templateUrl: '',
-                        controller: ['$state', '$scope', 'FJavagodPage',
-                            function ($state, $scope, FJavagodPage) {
-
-                            }
-                        ]
-                    }
-                }
-            });
-        };
-
-        var deletePage = function (name) {
-            delete _pages[name];
-        };
-
-        var $get = [
-
-            function () {
-                var pages = _pages;
-
-                return {
-
-                };
-            }
-        ];
-
-        return {
-            $get: $get,
-            createPage: createPage,
-            deletePage: deletePage
-        };
-    }
-]);
 
 ////////////////
 //POST CREATOR//
 ////////////////
+
+Javagod.config(['$stateProvider',
+    function ($stateProvider) {
+        //static site engine data creator
+        $stateProvider.state('javagod', {
+            url: '/javagod',
+            views: {
+                'root@': {
+                    templateUrl: 'templates/javagod.html'
+                }
+            }
+        });
+    }
+]);
 
 Javagod.constant('GOD_POST_SECTION_TYPE', {
     text: 0x0010,
@@ -241,65 +232,62 @@ Javagod.controller('CPostCreator', ['$scope', 'FGodPostSection', 'GOD_POST_SECTI
         };
 }]);
 
-////////////////
-//PAGE CREATOR//
-////////////////
 
-Javagod.factory('FGodPageSection', [
+/////////
+//PAGES//
+/////////
 
-    function () {
-        var PageSection = function () {
+Javagod.provider('FJavagodPage', ['$stateProvider',
+    function ($stateProvider) {
+        var _pages = {};
+
+        var PageMeta = function (aData) {
             return {
-                state: "",
-                title: "",
-                subtitle: "",
-                content: "" //this should be a url to an html template
+                data: aData
             };
         };
 
-        return PageSection;
-    }
-]);
-
-Javagod.controller('CPageCreator', ['$scope', 'FGodPageSection',
-    function ($scope, PageSection) {
-        this.thePage = {
-            state: "",
-            content: "", //this will be a url to an html template 
-            sections: []
+        var createPage = function (name, aData) {
+            _pages[name] = new PageMeta(aData);
+            $stateProvider.state(name, {
+                url: '/' + name + '/:sectionId',
+                views: {
+                    'root@': {
+                        templateUrl: aData,
+                        controller: ['$state', '$scope', '$uiViewScroll',
+                            function ($state, $scope, $uiViewScroll) {
+                                $scope.$on('$stateChangeSuccess', function (e) {
+                                    if ($state.params.sectionId == '') {
+                                        $('body').animate({scrollTop: '0'}, 64);
+                                    } else {
+                                        $uiViewScroll($('#' + $state.params.sectionId));
+                                    }
+                                });
+                            }
+                        ]
+                    }
+                }
+            });
         };
 
-        this.addSection = function () {
-            this.thePage.sections.push(new PageSection());
-        };
+        var $get = [
 
-        this.deleteSection = function (sectId) {
-            this.thePage.sections.splice(sectId, 1);
-        };
-    }
-]);
+            function () {
+                var pages = _pages;
 
-///////////////////
-//BLOG NAVIGATION//
-///////////////////
+                return {
 
-Javagod.directive('javagodBlogNav', function () {
-    return {
-        restrict: 'A',
-        scope: {
-            blogName: '@javagodBlogNav'
-        },
-        templateUrl: 'templates/godBlogNav.html',
-        controller: ['$scope', 'FJavagod',
-            function ($scope, FJavagod) {
-                FJavagod.getPostArray($scope.blogName, function (data) {
-                    $scope.blogNav = data;
-                });
+                };
             }
-        ]
-        //NEED LINK FUNCTION TO BIND CLASS ACTIVE TO ACTIVE ROUTE
-    };
-});
+        ];
+
+        return {
+            $get: $get,
+            createPage: createPage
+        };
+    }
+]);
+
 
 console.log('%c\n' +
     '    $$$$$\\                                                        $$\\ \n' +
@@ -315,4 +303,4 @@ console.log('%c\n' +
     '                                        \\______/                     \n' +
     '\n' +
     'Kevin Wang: https://github.com/wangkevin1                            \n\n ',
-    'font-family: Consolas, monospace; color: #bc2200');
+    'font-family: Consolas, Monaco, monospace; color: #bc2200');

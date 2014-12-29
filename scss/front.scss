@@ -53,7 +53,7 @@ a.no-style {
 
 //centering container in navbar
 nav#navbar {
-  @include def-minheight(96px);
+  @include def-minheight(80px);
   @include pseudo-center('.container');
   ul.navbar-nav {
     font-size: 16px;

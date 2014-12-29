@@ -29,7 +29,7 @@ Config.factory('configFactory', [
             "sections": {
                 "home": [
 
-        ]
+                ]
             },
             "logo": {
                 "icon": {
