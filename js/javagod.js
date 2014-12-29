@@ -45,15 +45,15 @@ Javagod.provider('FJavagodBlog', ['$stateProvider',
             views: {
                 'root@': {
                     templateUrl: 'templates/godBlog.html',
-                    controller: ['$state', '$scope', 'FJavagod',
-                        function ($state, $scope, FJavagod) {
+                    controller: ['$state', '$scope', 'FJavagodBlog',
+                        function ($state, $scope, FJavagodBlog) {
                             $scope.getPost = function (blog, post) {
-                                FJavagod.getPostJson(blog, post, function (data) {
+                                FJavagodBlog.getPostJson(blog, post, function (data) {
                                     $scope.god = data;
                                 });
                             };
                             $scope.getArray = function (blog) {
-                                FJavagod.getPostArray(blog, function (data) {
+                                FJavagodBlog.getPostArray(blog, function (data) {
                                     $scope.blogNav = data;
                                 });
                             };
