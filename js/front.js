@@ -41,6 +41,13 @@ Robotics.config(['$locationProvider',
         //$locationProvider.html5Mode(true);
   }
 ]);
+//
+Robotics.config(['$stateProvider', '$urlRouterProvider',
+  function ($stateProvider, $urlRouterProvider) {
+        //redirect to home
+        $urlRouterProvider.otherwise('/home/');
+  }
+]);
 
 /////////////////////
 //GLOBAL CONTROLLER//
