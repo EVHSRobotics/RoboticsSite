@@ -1,20 +1,55 @@
 [
     {
-        "name": "", 
-        "title": "", 
-        "bio": "", 
+        "name": "Vivian Zhang",
+        "title": "President",
+        "bio": ["Hi! I'm Vivian and I'm currently a senior at EVHS. I joined Robotics my freshman year sometime at the beginning of build season, and stayed ever since. Although a majority of the members then were seniors and graduated that year, the next year we endured, and I couldn’t have asked for a better group of members to learn and grow with, as a team. Over the years, I’ve learned to appreciate not only the hours of hands-on experience and the problem-solving skills I have gained, but also the environment of the club as a whole. We build together, yes, but we also eat together, breathe together, cry together, and laugh together. Now, as president, I oversee the design and construction of the overall robot, deal with school administration, and basically make sure that we have everything we need – member participation, robot materials, events, etc. – for the club to continue running smoothly."],
         "image": ""
-    }, 
+    },
     {
-        "name": "", 
-        "title": "", 
-        "bio": "", 
+        "name": "Aakash Parikh",
+        "title": "Vice President",
+        "bio": ["Hi! I'm Aakash Parikh and I am currently a third year member of the EVHS robotics team. I joined the team in freshman year when our mentor and my physics teacher at the time, Mr. Miller, brought out a robot. When I learned that our school had a club where I could explore my interests in computer programming and building, I had to attend a meeting. The first few meetings got me hooked, and taught me basic mechanical design and what a robot really is. The first build season, when we put together an award-winning robot together with duct tape and cardboard, was when I started to love robotics. Being part of the Prototypes was not only long hours of screwing bolts together, but also team-bonding and having fun. Being on the team has taught me mechanical functions, electrical design, programming ideas and leadership skills. My favorite part about my position is being able to use all the skills robotics has given me and use it to connect the club and bring different subsystems together as one. My experience as a member of the team has led me to find a Robotics Family, of people who share my passion for building."],
         "image": ""
-    }, 
+    },
     {
-        "name": "", 
-        "title": "", 
-        "bio": "", 
+        "name": "Jenna Wen",
+        "title": "Secretary",
+        "bio": ["Hello! My name is Jenna and I'm currently a junior, a third-year member of Robotics Club. I joined Robotics as a freshman, after I persuaded a friend of mine to go to meetings with me. I was immediately attracted by the friendly environment of the club; the officers especially seemed to make an effort to know me and include me. I was initially in the mechanical subdivision, but at the end of the year I found myself taking care of minor club affairs rather than directly working on the robot. I became club secretary the following year, my sophomore year. As secretary, I keep track of club minutes, attendance, and communication within the club. I love being secretary because the job allows me to interact with different kinds of people, from first-year members to the familiar faces I have seen ever since I joined. I also try my best to recreate the engaging and encouraging environment that had attracted me to this club two years ago."],
+        "image": ""
+    },
+    {
+        "name": "Oliver Yang",
+        "title": "Treasurer",
+        "bio": ["Hi everyone! My name is Oliver Yang and currently I am currently in 11th Grade. I have been a member of the EVHS Robotics Team 2854 for three years now. When I was a freshman, I was introduced to robotics by simply stumbling across their table during Club Week, and I signed up. After a few introductory meetings, I started off in no section in particular. Eventually, I ended up managing finances because I felt that my efforts weren’t very efficiently used in mechanical, electrical, or programming sectors. My favorite part about being treasurer is the pressure is lax. I love to work independently on my own projects, like grants and forms, but I have a tendency to encumber my workload. Being on this team feels like being a part of a family now, and I look forward to working as treasurer of this amazing club!"],
+        "image": ""
+    },
+    {
+        "name": "Justin Lin",
+        "title": "Project Manager",
+        "bio": ["Hello, I am Justin Lin, and I am a proud member of the EVHS Robotics Club. My hobbies include video games, video games, and the SAT.I started off programming the control system for the robot, but I saw a need for overarching management, so now I make sure that we have a working robot by the end of build season.I've always loved computers and video games, and also Lego as a kid. This seemed to combine both of my interests, and it was either this or speech and debate. Really there was no contest.Robotics is a big team, working together to overcome the odds. The exhilaration of finally watching something work after hours of toil and troubleshooting is what I live for. In the end, robotics shows the wonders of engineering - scrap and wood can be transformed into anything the mind can imagine - as long as you use enough duct tape.",
+                "I started off programming the control system for the robot, but I saw a need for overarching management, so now I make sure that we have a working robot by the end of build season.",
+                "I've always loved computers and video games, and also Lego as a kid. This seemed to combine both of my interests, and it was either this or speech and debate. Really there was no contest.",
+                "Robotics is a big team, working together to overcome the odds. The exhilaration of finally watching something work after hours of toil and troubleshooting is what I live for. In the end, robotics shows the wonders of engineering - scrap and wood can be transformed into anything the mind can imagine - as long as you use enough duct tape."],
+        "image": ""
+    },
+    {
+        "name": "Kevin Wang",
+        "title": "Programming / Electrical Lead; Webmaster",
+        "bio": ["I am a Junior and am in my third year participating in FRC. Within the past two years, I have learned fathoms about robotic control system electronics and the programming architecture required to control them. With every build season, we, as a team, have decided to tackle increasingly difficult technical challenges, be it the usage of sensors and PID, or the controlling of a mecanum drive train. In helping to solve these technical obstacles, I have learned new skills and gained much knowledge, and of course had great fun in doing so. The reason why I am captivated by FRC and on the whole, robotics and engineering, is due to different approaches to solving a given problem from both a mechanical and programming standpoint. It is intriguing to look at other team's code and physical designs to see how they attacked the competition.",
+               "Additionally, I manage the back and front end code base that runs our Robotics website. It originally started as a small side project during my freshman year using some html and css. Now I have developed a full client side javascript framework built on angular, and a nodejs gulp build tool for our site.",
+               "My experience with our robotics team has been more than simply educational, however. I have met brilliant people and friends throughout these years. We have laughed together, became frustrated together, shared moments of agony. I am proud to call the robotics team of Evergreen Valley High School my second family. And with that, cheers to another two years in FRC!"],
+        "image": ""
+    },
+    {
+        "name": "",
+        "title": "",
+        "bio": [],
+        "image": ""
+    },
+    {
+        "name": "",
+        "title": "",
+        "bio": [],
         "image": ""
     }
 ]

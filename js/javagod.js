@@ -17,11 +17,44 @@
 
 var Javagod = angular.module('Javagod', ['ui.router', 'JavagodUtil']);
 
-//Javagod.config(['$uiViewScrollProvider',
-//    function ($uiViewScrollProvider) {
-//        $uiViewScrollProvider.useAnchorScroll();
-//    }
-//]);
+///////////////
+//MAIN ROUTES//
+///////////////
+
+Javagod.provider('godRouter', ['$urlRouterProvider', 'FJavagodBlogProvider', 'FJavagodPageProvider', 'FJavagodNavProvider',
+    function ($urlRouterProvider, blogProvider, pageProvider, navProvider) {
+        
+        var defaultRoute = function(route) {
+            $urlRouterProvider.otherwise(route);
+        };
+        
+        var createBlog = function(name, data, prefix, postArray) {
+            blogProvider.createBlog(name, data, prefix, postArray);
+        };
+        
+        var createPage = function(name, data) {
+            pageProvider.createPage(name, data);
+        };
+        
+        var addTab = function(name, state) {
+            navProvider.addTab(name, state);
+        };
+        
+        var $get = function() {
+            return {
+                
+            };
+        };
+        
+        return {
+            $get: $get, 
+            defaultRoute: defaultRoute, 
+            createBlog: createBlog, 
+            createPage: createPage, 
+            addTab: addTab
+        };
+    }
+]);
 
 /////////
 //BLOGS//

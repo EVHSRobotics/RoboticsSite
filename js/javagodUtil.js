@@ -59,3 +59,9 @@ JavagodUtil.directive('godCountdown', [
         }]
         };
 }]);
+
+JavagodUtil.directive('godCarousel', [
+    function() {
+        
+    }
+]);

@@ -20,39 +20,20 @@ Robotics.config(['$compileProvider',
 //JAVAGOD CONFIG//
 //////////////////
 
-Robotics.config(['FJavagodBlogProvider', 'FJavagodPageProvider', 'FJavagodNavProvider',
-  function (BlogProvider, PageProvider, NavProvider) {
+Robotics.config(['godRouterProvider',
+  function (godRouterProvider) {
+      godRouterProvider
         //Proto Blog//
-        BlogProvider
-            .createBlog('proto', 'data/data_god_blog', 'godPost', 'data/godBlogPostArray.json');
+            .createBlog('proto', 'data/data_god_blog', 'godPost', 'data/godBlogPostArray.json')
         //Home Page//
-        PageProvider
-            .createPage('home', 'templates/home.html');
+            .createPage('home', 'templates/home.html')
         //NAV BAR//
-        NavProvider
             .addTab('Home', 'home({sectionId: ""})')
             .addTab('About', 'home({sectionId: "about"})')
             .addTab('Officer Bios', 'home({sectionId: "bios"})')
-            .addTab('Blog', 'blog.proto({postId:""})');
+            .addTab('Blog', 'blog.proto({postId:""})')
+        //Default Route//
+            .defaultRoute('/home/')
+      ;
     }
-]);
-
-///////////////
-//MAIN ROUTES//
-///////////////
-
-//Base Url Config//
-Robotics.config(['$locationProvider',
-  function ($locationProvider) {
-        //clean urls
-
-        //$locationProvider.html5Mode(true);
-  }
-]);
-
-//Redirect to Home//
-Robotics.config(['$stateProvider', '$urlRouterProvider',
-  function ($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/home/');
-  }
 ]);
