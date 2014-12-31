@@ -17,27 +17,25 @@
 
 var Javagod = angular.module('Javagod', ['ui.router', 'JavagodUtil']);
 
+//////////////
+//PRODUCTION//
+//////////////
+
+Robotics.config(['$compileProvider',
+    function ($compileProvider) {
+        $compileProvider.debugInfoEnabled(false);
+    }
+]);
+
 ///////////////
-//MAIN ROUTES//
+//MAIN ROUTER//
 ///////////////
 
-Javagod.provider('godRouter', ['$urlRouterProvider', 'FJavagodBlogProvider', 'FJavagodPageProvider', 'FJavagodNavProvider',
-    function ($urlRouterProvider, blogProvider, pageProvider, navProvider) {
+Javagod.provider('godRouter', ['$urlRouterProvider', 
+    function ($urlRouterProvider) {
         
         var defaultRoute = function(route) {
             $urlRouterProvider.otherwise(route);
-        };
-        
-        var createBlog = function(name, data, prefix, postArray) {
-            blogProvider.createBlog(name, data, prefix, postArray);
-        };
-        
-        var createPage = function(name, data) {
-            pageProvider.createPage(name, data);
-        };
-        
-        var addTab = function(name, state) {
-            navProvider.addTab(name, state);
         };
         
         var $get = function() {
@@ -48,10 +46,7 @@ Javagod.provider('godRouter', ['$urlRouterProvider', 'FJavagodBlogProvider', 'FJ
         
         return {
             $get: $get, 
-            defaultRoute: defaultRoute, 
-            createBlog: createBlog, 
-            createPage: createPage, 
-            addTab: addTab
+            defaultRoute: defaultRoute
         };
     }
 ]);

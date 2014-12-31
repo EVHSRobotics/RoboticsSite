@@ -6,34 +6,52 @@
 
 var Robotics = angular.module('Robotics', ['ui.router', 'ui.utils', 'headroom', 'HeadroomComponents', 'Javagod', 'JavagodUtil', 'LogoComponents']);
 
-//////////////
-//PRODUCTION//
-//////////////
-
-Robotics.config(['$compileProvider',
-    function ($compileProvider) {
-        $compileProvider.debugInfoEnabled(false);
-    }
-]);
-
 //////////////////
 //JAVAGOD CONFIG//
 //////////////////
 
-Robotics.config(['godRouterProvider',
-  function (godRouterProvider) {
-      godRouterProvider
+Robotics.config(['godRouterProvider', 'FJavagodBlogProvider', 'FJavagodPageProvider', 'FJavagodNavProvider',
+  function (godRouterProvider, blogProvider, pageProvider, navProvider) {
+        //BLOG//
+        blogProvider
         //Proto Blog//
-            .createBlog('proto', 'data/data_god_blog', 'godPost', 'data/godBlogPostArray.json')
+        .createBlog('proto', 'data/data_god_blog', 'godPost', 'data/godBlogPostArray.json');
+
+        //PAGE//  
+        pageProvider
         //Home Page//
-            .createPage('home', 'templates/home.html')
+        .createPage('home', 'templates/home.html');
+
         //NAV BAR//
+        navProvider
             .addTab('Home', 'home({sectionId: ""})')
             .addTab('About', 'home({sectionId: "about"})')
             .addTab('Officer Bios', 'home({sectionId: "bios"})')
-            .addTab('Blog', 'blog.proto({postId:""})')
+            .addTab('Blog', 'blog.proto({postId:""})');
+        godRouterProvider
         //Default Route//
-            .defaultRoute('/home/')
-      ;
+        .defaultRoute('/home/');
+    }
+]);
+
+//////////////
+//COMPONENTS//
+//////////////
+
+Robotics.directive('officerBios', [
+
+    function () {
+        return {
+            restrict: 'A',
+            scope: {
+
+            },
+            templateUrl: '',
+            controller: [
+                function () {
+
+                }
+            ]
+        }
     }
 ]);

@@ -7,5 +7,5 @@
     </div>
 </form>
 <div class="list-group">
-    <a ng-repeat="post in blogNav | filter:blogArraySearchText" class="list-group-item" ui-sref="blog.{{blog}}({postId: '{{post.id}}'})"><h5>{{post.title}} <small>{{post.subtitle}}</small></h5><small>{{post.date | date8}}</small></a>
+    <a ng-repeat="post in blogNav | filter:blogArraySearchText" class="list-group-item" ui-sref="blog.{{blog}}({postId: '{{post.id}}'})"><h5>{{post.title}}</h5><small>{{post.date | date8}}</small></a>
 </div>

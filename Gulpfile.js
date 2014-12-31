@@ -8,17 +8,6 @@
 
 //vendor
 var VENDORS = [
-    'bower_components/angular/angular.min.js',
-    'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-    'bower_components/bootstrap/dist/css/bootstrap.min.css',
-    'bower_components/bootstrap/dist/css/bootstrap-theme.min.css',
-    'bower_components/bootstrap/dist/js/bootstrap.min.js',
-    'bower_components/fontawesome/css/font-awesome.min.css',
-    'bower_components/jquery/dist/jquery.min.js',
-    'bower_components/moment/min/moment.min.js',
-    'bower_components/headroom.js/dist/headroom.min.js',
-    'bower_components/headroom.js/dist/angular.headroom.min.js',
-    'bower_components/angular-ui-utils/ui-utils.min.js',
     'bower_components/moment-duration-format/lib/moment-duration-format.js'
 ];
 
