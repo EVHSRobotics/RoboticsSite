@@ -8,7 +8,8 @@
 
 //vendor
 var VENDORS = [
-    'bower_components/moment-duration-format/lib/moment-duration-format.js'
+    'bower_components/moment-duration-format/lib/moment-duration-format.js', 
+    'bower_components/atlasjs/production/**'
 ];
 
 //browser-sync
@@ -62,6 +63,21 @@ var fileArray = function (dir) {
     return fs.readdirSync(dir).map(function (element) {
         return './' + dir + '/' + element;
     });
+};
+
+var blogPostArray = function (dir, attrs) {
+    var postArray = [];
+    fileArray(dir).map(function (element) {
+        var data = require(element);
+
+        var attributes = {};
+
+        for (var i = 0; i < attrs.length; i++) {
+            attributes[attrs[i]] = data[attrs[i]];
+        }
+        postArray.unshift(attributes);
+    });
+    return postArray;
 };
 
 /////////
@@ -121,20 +137,11 @@ gulp.task('data', function () {
 
 //Data Blog Array
 gulp.task('dataBlogArray', ['data'], function () {
-    var blogPostArray = [];
-    //MAKE THIS COME FROM THE CONFIG FILE
-    fileArray('data/data_god_blog').map(function (element) {
-        var data = require(element);
-        blogPostArray.unshift({
-            id: data.id,
-            title: data.title,
-            subtitle: data.subtitle,
-            date: data.date
-        });
-    });
-    return gulp.src('data/godBlogPostArray.json')
+
+    var posts = blogPostArray('data/data_proto_blog', ['id', 'title', 'date']);
+    return gulp.src('data/blogPostArray.json')
         .pipe(jsonEditor(function (json) {
-            return blogPostArray;
+            return posts;
         }))
         .pipe(gulp.dest('dist/data'));
 });
@@ -215,28 +222,48 @@ gulp.task('scripts-D', function () {
 //COMPILE dev 
 gulp.task('compile-D', ['vendor', 'html', 'templates', 'assets', 'data', 'dataBlogArray', 'scss', 'scripts-D']);
 
+//ATLAS 
+
+gulp.task('atScript', function () {
+    return gulp.src('src/*.js')
+        .pipe(concat('atlas.min.js'))
+        .pipe(uglify())
+        .pipe(gulp.dest('production/atlas'));
+});
+
+gulp.task('atScss', function () {
+    return gulp.src('src/atlas.scss')
+        .pipe(rename('atlas.min.css'))
+        .pipe(sass())
+        .pipe(csso())
+        .pipe(gulp.dest('production/atlas'));
+});
+
+gulp.task('atTemplate', function () {
+    return gulp.src('src/templates/**')
+        .pipe(gulp.dest('production/atlas/templates'));
+});
+
+gulp.task('compileAtlas', ['atScript', 'atScss', 'atTemplate']);
+
 //GHPAGES
 gulp.task('ghpages', ['compile'], function () {
     return gulp.src('dist/**')
-        .pipe(gulp.dest('../RoboticsSiteGhpages'));
+        .pipe(gulp.dest('../siteGhpages'));
 });
 
 //Start Server 
 gulp.task('start', ['compile', 'bs', 'watch'], function () {
     util.log('\n' +
-        '    $$$$$\\                                                        $$\\ \n' +
-        '    \\__$$ |                                                       $$ |\n' +
-        '       $$ | $$$$$$\\ $$\\    $$\\ $$$$$$\\   $$$$$$\\   $$$$$$\\   $$$$$$$ |\n' +
-        '       $$ | \\____$$\\\\$$\\  $$  |\\____$$\\ $$  __$$\\ $$  __$$\\ $$  __$$ |\n' +
-        ' $$\\   $$ | $$$$$$$ |\\$$\\$$  / $$$$$$$ |$$ /  $$ |$$ /  $$ |$$ /  $$ |\n' +
-        ' $$ |  $$ |$$  __$$ | \\$$$  / $$  __$$ |$$ |  $$ |$$ |  $$ |$$ |  $$ |\n' +
-        ' \\$$$$$$  |\\$$$$$$$ |  \\$  /  \\$$$$$$$ |\\$$$$$$$ |\\$$$$$$  |\\$$$$$$$ |\n' +
-        '  \\______/  \\_______|   \\_/    \\_______| \\____$$ | \\______/  \\_______|\n' +
-        '                                       $$\\   $$ |                    \n' +
-        '                                       \\$$$$$$  |                    \n' +
-        '                                        \\______/                     \n' +
-
-        '//LOCALHOST:' + CONFIG.port + '//\n'
+        '            $$\\     $$\\                      \n' +
+        '            $$ |    $$ |                     \n' +
+        '  $$$$$$\\ $$$$$$\\   $$ | $$$$$$\\   $$$$$$$\\  \n' +
+        '  \\____$$\\\\_$$  _|  $$ | \\____$$\\ $$  _____| \n' +
+        '  $$$$$$$ | $$ |    $$ | $$$$$$$ |\\$$$$$$\   \n' +
+        ' $$  __$$ | $$ |$$\\ $$ |$$  __$$ | \\____$$\\  \n' +
+        ' \\$$$$$$$ | \\$$$$  |$$ |\\$$$$$$$ |$$$$$$$  | \n' +
+        '  \\_______|  \\____/ \\__| \\_______|\\_______/  \n' +
+        '\n//LOCALHOST:' + CONFIG.port + '//\n'
     );
 });
 

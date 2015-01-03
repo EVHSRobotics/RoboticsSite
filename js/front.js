@@ -4,31 +4,29 @@
 //Kevin Wang: https://github.com/wangkevin1///
 //////////////////////////////////////////////
 
-var Robotics = angular.module('Robotics', ['ui.router', 'ui.utils', 'headroom', 'HeadroomComponents', 'Javagod', 'JavagodUtil', 'LogoComponents']);
+var Robotics = angular.module('Robotics', ['Atlas', 'LogoComponents']);
 
 //////////////////
 //JAVAGOD CONFIG//
 //////////////////
 
-Robotics.config(['godRouterProvider', 'FJavagodBlogProvider', 'FJavagodPageProvider', 'FJavagodNavProvider',
-  function (godRouterProvider, blogProvider, pageProvider, navProvider) {
+Robotics.config(['atProvider',
+  function (at) {
         //BLOG//
-        blogProvider
+        at
         //Proto Blog//
-        .createBlog('proto', 'data/data_god_blog', 'godPost', 'data/godBlogPostArray.json');
+        .createBlog('proto', 'data/data_proto_blog', 'protoPost', 'data/blogPostArray.json')
 
         //PAGE//  
-        pageProvider
         //Home Page//
-        .createPage('home', 'templates/home.html');
+        .createPage('home', 'templates/home.html')
 
         //NAV BAR//
-        navProvider
+        .setBrand('templates/navBrand.html', 'home({sectionId: ""})')
             .addTab('Home', 'home({sectionId: ""})')
             .addTab('About', 'home({sectionId: "about"})')
             .addTab('Officer Bios', 'home({sectionId: "bios"})')
-            .addTab('Blog', 'blog.proto({postId:""})');
-        godRouterProvider
+            .addTab('Blog', 'blog.proto({postId:""})')
         //Default Route//
         .defaultRoute('/home/');
     }
@@ -48,6 +46,7 @@ Robotics.directive('officerBios', [
             },
             templateUrl: '',
             controller: [
+
                 function () {
 
                 }
