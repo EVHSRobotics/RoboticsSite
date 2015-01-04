@@ -249,7 +249,7 @@ gulp.task('compileAtlas', ['atScript', 'atScss', 'atTemplate']);
 //GHPAGES
 gulp.task('ghpages', ['compile'], function () {
     return gulp.src('dist/**')
-        .pipe(gulp.dest('../siteGhpages'));
+        .pipe(gulp.dest('../RoboticsSiteGhpages'));
 });
 
 //Start Server 
