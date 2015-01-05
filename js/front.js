@@ -44,11 +44,13 @@ Robotics.directive('officerBios', [
             scope: {
 
             },
-            templateUrl: '',
-            controller: [
-
-                function () {
-
+            templateUrl: 'templates/officerBios.html',
+            controller: ['$scope', '$http',
+                function ($scope, $http) {
+                    $http.get('data/data_bios/officerBios.json')
+                        .success(function (data, status, headers, config) {
+                            $scope.bios = data;
+                        });
                 }
             ]
         }

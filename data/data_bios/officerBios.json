@@ -12,6 +12,15 @@
         "image": ""
     },
     {
+        "name": "Justin Lin",
+        "title": "Project Manager",
+        "bio": ["Hello, I am Justin Lin, and I am a proud member of the EVHS Robotics Club. My hobbies include video games, video games, and the SAT.I started off programming the control system for the robot, but I saw a need for overarching management, so now I make sure that we have a working robot by the end of build season.I've always loved computers and video games, and also Lego as a kid. This seemed to combine both of my interests, and it was either this or speech and debate. Really there was no contest.Robotics is a big team, working together to overcome the odds. The exhilaration of finally watching something work after hours of toil and troubleshooting is what I live for. In the end, robotics shows the wonders of engineering - scrap and wood can be transformed into anything the mind can imagine - as long as you use enough duct tape.",
+                "I started off programming the control system for the robot, but I saw a need for overarching management, so now I make sure that we have a working robot by the end of build season.",
+                "I've always loved computers and video games, and also Lego as a kid. This seemed to combine both of my interests, and it was either this or speech and debate. Really there was no contest.",
+                "Robotics is a big team, working together to overcome the odds. The exhilaration of finally watching something work after hours of toil and troubleshooting is what I live for. In the end, robotics shows the wonders of engineering - scrap and wood can be transformed into anything the mind can imagine - as long as you use enough duct tape."],
+        "image": ""
+    },
+    {
         "name": "Jenna Wen",
         "title": "Secretary",
         "bio": ["Hello! My name is Jenna and I'm currently a junior, a third-year member of Robotics Club. I joined Robotics as a freshman, after I persuaded a friend of mine to go to meetings with me. I was immediately attracted by the friendly environment of the club; the officers especially seemed to make an effort to know me and include me. I was initially in the mechanical subdivision, but at the end of the year I found myself taking care of minor club affairs rather than directly working on the robot. I became club secretary the following year, my sophomore year. As secretary, I keep track of club minutes, attendance, and communication within the club. I love being secretary because the job allows me to interact with different kinds of people, from first-year members to the familiar faces I have seen ever since I joined. I also try my best to recreate the engaging and encouraging environment that had attracted me to this club two years ago."],
@@ -21,15 +30,6 @@
         "name": "Oliver Yang",
         "title": "Treasurer",
         "bio": ["Hi everyone! My name is Oliver Yang and currently I am currently in 11th Grade. I have been a member of the EVHS Robotics Team 2854 for three years now. When I was a freshman, I was introduced to robotics by simply stumbling across their table during Club Week, and I signed up. After a few introductory meetings, I started off in no section in particular. Eventually, I ended up managing finances because I felt that my efforts weren’t very efficiently used in mechanical, electrical, or programming sectors. My favorite part about being treasurer is the pressure is lax. I love to work independently on my own projects, like grants and forms, but I have a tendency to encumber my workload. Being on this team feels like being a part of a family now, and I look forward to working as treasurer of this amazing club!"],
-        "image": ""
-    },
-    {
-        "name": "Justin Lin",
-        "title": "Project Manager",
-        "bio": ["Hello, I am Justin Lin, and I am a proud member of the EVHS Robotics Club. My hobbies include video games, video games, and the SAT.I started off programming the control system for the robot, but I saw a need for overarching management, so now I make sure that we have a working robot by the end of build season.I've always loved computers and video games, and also Lego as a kid. This seemed to combine both of my interests, and it was either this or speech and debate. Really there was no contest.Robotics is a big team, working together to overcome the odds. The exhilaration of finally watching something work after hours of toil and troubleshooting is what I live for. In the end, robotics shows the wonders of engineering - scrap and wood can be transformed into anything the mind can imagine - as long as you use enough duct tape.",
-                "I started off programming the control system for the robot, but I saw a need for overarching management, so now I make sure that we have a working robot by the end of build season.",
-                "I've always loved computers and video games, and also Lego as a kid. This seemed to combine both of my interests, and it was either this or speech and debate. Really there was no contest.",
-                "Robotics is a big team, working together to overcome the odds. The exhilaration of finally watching something work after hours of toil and troubleshooting is what I live for. In the end, robotics shows the wonders of engineering - scrap and wood can be transformed into anything the mind can imagine - as long as you use enough duct tape."],
         "image": ""
     },
     {
@@ -44,12 +44,6 @@
         "name": "Ammar Husain",
         "title": "Mechanical Lead",
         "bio": ["Hi! My name is Ammar Husain and I’m a third year EVHS Robotics Student. In my freshman year of high school, I enrolled in the mechanical division not knowing what I was getting into. From the first meeting, I immediately started interacting with the robot and working on various different subsystems and projects. Robotics gave me the hands on experience that no other program could provide. Every meeting we were always doing something, trying out new ideas and learning new concepts. I grew to love not only the technical side of the team, but also the people in it, constantly working together as a unit. Now as the head of the mechanical division, I oversee the design process and manage various subsystems to make sure that we produce an efficient and effective design. I not only get to work constantly on the robot itself, but also with other divisions to make sure that the robot can run smoothly. Joining robotics has really changed my outlook on engineering, and taught me various technical and leadership skills."],
-        "image": ""
-    },
-    {
-        "name": "",
-        "title": "",
-        "bio": [],
         "image": ""
     }
 ]
