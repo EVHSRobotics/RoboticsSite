@@ -27,6 +27,7 @@ Robotics.config(['atProvider',
             .addTab('About', 'home({sectionId: "about"})')
             .addTab('Officer Bios', 'home({sectionId: "bios"})')
             .addTab('Blog', 'blog.proto({postId:""})')
+            .addRightTab('Contact', 'home({sectionId: "contact"})')
         //Default Route//
         .defaultRoute('/home/');
     }
@@ -53,6 +54,6 @@ Robotics.directive('officerBios', [
                         });
                 }
             ]
-        }
+        };
     }
 ]);
