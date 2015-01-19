@@ -17,9 +17,9 @@
     "tests"
   ],
   "dependencies": {
-    "atlasjs": "~0.2.1"
+    "atlasjs": "latest"
   },
   "resolutions": {
-    "angular": "1.3.8"
+    "angular": "1.3.9"
   }
 }

@@ -2,35 +2,97 @@
 //GULP SCRIPTS//
 ////////////////
 
+//////////////////
+//File Structure//
+//////////////////
+
+//node
+var fs = require('fs');
+var path = require('path');
+
+//get from file system
+function fsGet(path) {
+    return fs.readFileSync(path);
+}
+
+//File Array in directory
+function fileArray(dir) {
+    return fs.readdirSync(dir).map(function (element) {
+        return './' + dir + '/' + element;
+    });
+}
+
+function getUserHome() {
+    return (process.env.HOME || process.env.HOMEPATH || process.env.USERPROFILE) + '/';
+}
+
+function blogPostArray(dir, attrs) {
+    var postArray = [];
+    fileArray(dir).forEach(function (element) {
+        var data = require(element);
+
+        var attributes = {};
+
+        for (var i = 0; i < attrs.length; i++) {
+            attributes[attrs[i]] = data[attrs[i]];
+        }
+        postArray.unshift(attributes);
+    });
+    return postArray;
+}
+
+
 //////////
 //CONFIG//
 //////////
 
 //vendor
 var VENDORS = [
-    'bower_components/moment-duration-format/lib/moment-duration-format.js', 
+    'bower_components/moment-duration-format/lib/moment-duration-format.js',
     'bower_components/atlasjs/production/**'
 ];
 
 //browser-sync
-var CONFIG = {
+var BSYNC = {
     server: {
         baseDir: 'dist'
     },
     port: 1212
 };
 
+var REMOTE = {
+    sftpConfig: {
+        host: 'evhsrobotics.com',
+        auth: 'privateKey',
+        remotePath: 'evhsrobotics.com'
+    }
+};
 
-//GULP
-var gulp = require('gulp');
+
+var BLOGS = [];
+
+var atBlogMeta = function(aName, aDataPath) {
+    return {
+        name: aName,
+        dataPath: aDataPath
+    };
+};
+
+var addBlog = function(name, dataPath) {
+    BLOGS.push(new atBlogMeta(name, dataPath));
+};
+
+//ADD BLOGS HERE
+//addBlog(name, dataPath);
+addBlog('proto', 'data/data_proto_blog');
+
 
 ///////////
 //PLUGINS//
 ///////////
 
-//node
-var fs = require('fs');
-var path = require('path');
+//GULP
+var gulp = require('gulp');
 
 //hint
 var jshint = require('gulp-jshint');
@@ -54,31 +116,8 @@ var jsonEditor = require('gulp-json-editor');
 var merge = require('merge-stream');
 var browsersync = require('browser-sync');
 
-//////////////////
-//File Structure//
-//////////////////
-
-//File Array in directory
-var fileArray = function (dir) {
-    return fs.readdirSync(dir).map(function (element) {
-        return './' + dir + '/' + element;
-    });
-};
-
-var blogPostArray = function (dir, attrs) {
-    var postArray = [];
-    fileArray(dir).map(function (element) {
-        var data = require(element);
-
-        var attributes = {};
-
-        for (var i = 0; i < attrs.length; i++) {
-            attributes[attrs[i]] = data[attrs[i]];
-        }
-        postArray.unshift(attributes);
-    });
-    return postArray;
-};
+//deploy
+var sftp = require('gulp-sftp');
 
 /////////
 //TASKS//
@@ -86,7 +125,7 @@ var blogPostArray = function (dir, attrs) {
 
 //BROWSER-SYNC tasks
 gulp.task('bs', ['compile'], function () {
-    browsersync(CONFIG);
+    browsersync(BSYNC);
 });
 
 //CLEAN dist
@@ -137,11 +176,13 @@ gulp.task('data', function () {
 
 //Data Blog Array
 gulp.task('dataBlogArray', ['data'], function () {
-
-    var posts = blogPostArray('data/data_proto_blog', ['id', 'title', 'date']);
-    return gulp.src('data/blogPostArray.json')
+    return gulp.src('bower_components/atlasjs/blogPostArray.json')
         .pipe(jsonEditor(function (json) {
-            return posts;
+            var blogs = {};
+            BLOGS.forEach(function(element) {
+                blogs[element.name] = blogPostArray(element.dataPath, ['id', 'title', 'subtitle', 'date', 'author']);
+            });
+            return blogs;
         }))
         .pipe(gulp.dest('dist/data'));
 });
@@ -190,7 +231,7 @@ gulp.task('watch', ['compile'], function () {
 
 });
 
-//Watch dev 
+//Watch dev
 gulp.task('watch-D', ['compile-D'], function () {
     gulp.watch('html/*.html', ['html']);
     gulp.watch('templates/*.html', ['templates']);
@@ -219,10 +260,10 @@ gulp.task('scripts-D', function () {
         }));
 });
 
-//COMPILE dev 
+//COMPILE dev
 gulp.task('compile-D', ['vendor', 'html', 'templates', 'assets', 'data', 'dataBlogArray', 'scss', 'scripts-D']);
 
-//ATLAS 
+//ATLAS
 
 gulp.task('atScript', function () {
     return gulp.src('src/*.js')
@@ -249,10 +290,10 @@ gulp.task('compileAtlas', ['atScript', 'atScss', 'atTemplate']);
 //GHPAGES
 gulp.task('ghpages', ['compile'], function () {
     return gulp.src('dist/**')
-        .pipe(gulp.dest('../RoboticsSiteGhpages'));
+        .pipe(gulp.dest('../siteGhpages'));
 });
 
-//Start Server 
+//Start Server
 gulp.task('start', ['compile', 'bs', 'watch'], function () {
     util.log('\n' +
         '            $$\\     $$\\                      \n' +
@@ -263,12 +304,21 @@ gulp.task('start', ['compile', 'bs', 'watch'], function () {
         ' $$  __$$ | $$ |$$\\ $$ |$$  __$$ | \\____$$\\  \n' +
         ' \\$$$$$$$ | \\$$$$  |$$ |\\$$$$$$$ |$$$$$$$  | \n' +
         '  \\_______|  \\____/ \\__| \\_______|\\_______/  \n' +
-        '\n//LOCALHOST:' + CONFIG.port + '//\n'
+        '\n//LOCALHOST:' + BSYNC.port + '//\n'
     );
 });
 
-//Start Server dev 
+//Start Server dev
 gulp.task('start-D', ['compile-D', 'bs', 'watch-D']);
 
-//DEFAULT run server 
-gulp.task('default', ['start']);
+//////////
+//DEPLOY//
+//////////
+
+gulp.task('deploy', ['compile'], function() {
+    return gulp.src('dist/**')
+        .pipe(sftp(REMOTE.sftpConfig));
+});
+
+//DEFAULT run server
+gulp.task('default', ['deploy']);
